@@ -1,0 +1,6 @@
+#!/bin/sh
+cd ..
+cd ..
+docker-compose exec db sh -c 'exec pg_dump -U postgres time_tables > /backup/dump.sql'
+
+
