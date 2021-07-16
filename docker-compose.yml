@@ -1,0 +1,28 @@
+version: "3.7"
+
+volumes:
+  db-data:
+
+services:
+  web:
+    image: openjdk
+    restart: always
+    tty: true
+    working_dir: /home/app
+    command: "java -jar springboot-timetable-0.0.1-SNAPSHOT.jar"
+    volumes:
+      - ./target:/home/app
+    ports:
+      - 8002:8080
+
+  db:
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_DB: time_tables
+      POSTGRES_PASSWORD: passw
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./ops/db-backups:/backup
+    ports:
+      - 5442:5432
