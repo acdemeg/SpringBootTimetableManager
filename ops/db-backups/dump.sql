@@ -99,19 +99,19 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: AttributeValues; Type: TABLE; Schema: public; Owner: postgres
+-- Name: attribute_values; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."AttributeValues" (
+CREATE TABLE public.attribute_values (
     id integer NOT NULL,
-    "timeTableId" integer NOT NULL,
-    "attributeId" integer NOT NULL,
-    "orderId" integer NOT NULL,
+    time_table_id integer NOT NULL,
+    attribute_id integer NOT NULL,
+    order_id integer NOT NULL,
     value character varying(255)
 );
 
 
-ALTER TABLE public."AttributeValues" OWNER TO postgres;
+ALTER TABLE public.attribute_values OWNER TO postgres;
 
 --
 -- Name: AttributeValues_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -132,23 +132,23 @@ ALTER TABLE public."AttributeValues_id_seq" OWNER TO postgres;
 -- Name: AttributeValues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."AttributeValues_id_seq" OWNED BY public."AttributeValues".id;
+ALTER SEQUENCE public."AttributeValues_id_seq" OWNED BY public.attribute_values.id;
 
 
 --
--- Name: Attributes; Type: TABLE; Schema: public; Owner: postgres
+-- Name: attributes; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Attributes" (
+CREATE TABLE public.attributes (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
     type_attr character varying(255) NOT NULL,
-    "isRequired" boolean NOT NULL,
-    "timeTableId" integer NOT NULL
+    is_required boolean NOT NULL,
+    time_table_id integer NOT NULL
 );
 
 
-ALTER TABLE public."Attributes" OWNER TO postgres;
+ALTER TABLE public.attributes OWNER TO postgres;
 
 --
 -- Name: Attributes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -169,23 +169,23 @@ ALTER TABLE public."Attributes_id_seq" OWNER TO postgres;
 -- Name: Attributes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."Attributes_id_seq" OWNED BY public."Attributes".id;
+ALTER SEQUENCE public."Attributes_id_seq" OWNED BY public.attributes.id;
 
 
 --
--- Name: Notifications; Type: TABLE; Schema: public; Owner: postgres
+-- Name: notifications; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Notifications" (
+CREATE TABLE public.notifications (
     id integer NOT NULL,
-    "orderId" integer NOT NULL,
-    "userId" integer NOT NULL,
+    order_id integer NOT NULL,
+    user_id integer NOT NULL,
     type public."enum_Notifications_type" NOT NULL,
-    "isRead" boolean NOT NULL
+    is_read boolean NOT NULL
 );
 
 
-ALTER TABLE public."Notifications" OWNER TO postgres;
+ALTER TABLE public.notifications OWNER TO postgres;
 
 --
 -- Name: Notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -206,25 +206,25 @@ ALTER TABLE public."Notifications_id_seq" OWNER TO postgres;
 -- Name: Notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."Notifications_id_seq" OWNED BY public."Notifications".id;
+ALTER SEQUENCE public."Notifications_id_seq" OWNED BY public.notifications.id;
 
 
 --
--- Name: Orders; Type: TABLE; Schema: public; Owner: postgres
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Orders" (
+CREATE TABLE public.orders (
     id integer NOT NULL,
-    "authorId" integer NOT NULL,
-    "authorName" character varying(255) NOT NULL,
-    "startDate" timestamp with time zone NOT NULL,
-    "endDate" timestamp with time zone NOT NULL,
+    author_id integer NOT NULL,
+    author_name character varying(255) NOT NULL,
+    start_date timestamp with time zone NOT NULL,
+    end_date timestamp with time zone NOT NULL,
     status public."enum_Orders_status" DEFAULT 'CREATED'::public."enum_Orders_status" NOT NULL,
-    "timeTableId" integer NOT NULL
+    time_table_id integer NOT NULL
 );
 
 
-ALTER TABLE public."Orders" OWNER TO postgres;
+ALTER TABLE public.orders OWNER TO postgres;
 
 --
 -- Name: Orders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -245,35 +245,23 @@ ALTER TABLE public."Orders_id_seq" OWNER TO postgres;
 -- Name: Orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."Orders_id_seq" OWNED BY public."Orders".id;
+ALTER SEQUENCE public."Orders_id_seq" OWNED BY public.orders.id;
 
 
 --
--- Name: Sessions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: time_tables; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Sessions" (
-    id uuid NOT NULL,
-    sess jsonb NOT NULL
-);
-
-
-ALTER TABLE public."Sessions" OWNER TO postgres;
-
---
--- Name: TimeTables; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."TimeTables" (
+CREATE TABLE public.time_tables (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
-    "startDate" timestamp with time zone NOT NULL,
-    "endDate" timestamp with time zone NOT NULL,
-    "slotSize" public."enum_TimeTables_slotSize" NOT NULL
+    start_date timestamp with time zone NOT NULL,
+    end_date timestamp with time zone NOT NULL,
+    slot_size public."enum_TimeTables_slotSize" NOT NULL
 );
 
 
-ALTER TABLE public."TimeTables" OWNER TO postgres;
+ALTER TABLE public.time_tables OWNER TO postgres;
 
 --
 -- Name: TimeTables_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -294,24 +282,24 @@ ALTER TABLE public."TimeTables_id_seq" OWNER TO postgres;
 -- Name: TimeTables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."TimeTables_id_seq" OWNED BY public."TimeTables".id;
+ALTER SEQUENCE public."TimeTables_id_seq" OWNED BY public.time_tables.id;
 
 
 --
--- Name: Users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."Users" (
+CREATE TABLE public.users (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     email character varying(255) NOT NULL,
     password character varying(255) NOT NULL,
     role public."enum_Users_role" DEFAULT 'USER'::public."enum_Users_role" NOT NULL,
-    "imagePath" character varying(255)
+    image_path character varying(255)
 );
 
 
-ALTER TABLE public."Users" OWNER TO postgres;
+ALTER TABLE public.users OWNER TO postgres;
 
 --
 -- Name: Users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -332,56 +320,68 @@ ALTER TABLE public."Users_id_seq" OWNER TO postgres;
 -- Name: Users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public."Users_id_seq" OWNED BY public."Users".id;
+ALTER SEQUENCE public."Users_id_seq" OWNED BY public.users.id;
 
 
 --
--- Name: AttributeValues id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."AttributeValues" ALTER COLUMN id SET DEFAULT nextval('public."AttributeValues_id_seq"'::regclass);
+CREATE TABLE public.sessions (
+    id uuid NOT NULL,
+    sess jsonb NOT NULL
+);
 
 
---
--- Name: Attributes id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Attributes" ALTER COLUMN id SET DEFAULT nextval('public."Attributes_id_seq"'::regclass);
-
+ALTER TABLE public.sessions OWNER TO postgres;
 
 --
--- Name: Notifications id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: attribute_values id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Notifications" ALTER COLUMN id SET DEFAULT nextval('public."Notifications_id_seq"'::regclass);
+ALTER TABLE ONLY public.attribute_values ALTER COLUMN id SET DEFAULT nextval('public."AttributeValues_id_seq"'::regclass);
 
 
 --
--- Name: Orders id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: attributes id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Orders" ALTER COLUMN id SET DEFAULT nextval('public."Orders_id_seq"'::regclass);
-
-
---
--- Name: TimeTables id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."TimeTables" ALTER COLUMN id SET DEFAULT nextval('public."TimeTables_id_seq"'::regclass);
+ALTER TABLE ONLY public.attributes ALTER COLUMN id SET DEFAULT nextval('public."Attributes_id_seq"'::regclass);
 
 
 --
--- Name: Users id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: notifications id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Users" ALTER COLUMN id SET DEFAULT nextval('public."Users_id_seq"'::regclass);
+ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public."Notifications_id_seq"'::regclass);
 
 
 --
--- Data for Name: AttributeValues; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-COPY public."AttributeValues" (id, "timeTableId", "attributeId", "orderId", value) FROM stdin;
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public."Orders_id_seq"'::regclass);
+
+
+--
+-- Name: time_tables id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.time_tables ALTER COLUMN id SET DEFAULT nextval('public."TimeTables_id_seq"'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public."Users_id_seq"'::regclass);
+
+
+--
+-- Data for Name: attribute_values; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.attribute_values (id, time_table_id, attribute_id, order_id, value) FROM stdin;
 1	1	1	2	Meeting
 2	1	2	2	Count people 10
 3	1	1	3	JAVA Conference
@@ -406,10 +406,10 @@ COPY public."AttributeValues" (id, "timeTableId", "attributeId", "orderId", valu
 
 
 --
--- Data for Name: Attributes; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: attributes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Attributes" (id, title, type_attr, "isRequired", "timeTableId") FROM stdin;
+COPY public.attributes (id, title, type_attr, is_required, time_table_id) FROM stdin;
 1	Name Event	STRING	t	1
 2	Description	STRING	f	1
 3	Event	STRING	t	2
@@ -421,10 +421,10 @@ COPY public."Attributes" (id, title, type_attr, "isRequired", "timeTableId") FRO
 
 
 --
--- Data for Name: Notifications; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Notifications" (id, "orderId", "userId", type, "isRead") FROM stdin;
+COPY public.notifications (id, order_id, user_id, type, is_read) FROM stdin;
 1	2	2	ORDER_CREATED	f
 2	2	2	ORDER_CANCELED	f
 3	3	2	ORDER_ACCEPTED	f
@@ -432,10 +432,10 @@ COPY public."Notifications" (id, "orderId", "userId", type, "isRead") FROM stdin
 
 
 --
--- Data for Name: Orders; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Orders" (id, "authorId", "authorName", "startDate", "endDate", status, "timeTableId") FROM stdin;
+COPY public.orders (id, author_id, author_name, start_date, end_date, status, time_table_id) FROM stdin;
 1	1	Admin	2020-04-14 19:00:00+00	2020-04-14 20:00:00+00	ACCEPTED	1
 2	2	John Doe	2020-04-09 19:00:00+00	2020-04-09 20:00:00+00	CREATED	1
 3	2	John Doe	2020-04-12 19:00:00+00	2020-04-12 20:00:00+00	CREATED	1
@@ -466,18 +466,18 @@ COPY public."Orders" (id, "authorId", "authorName", "startDate", "endDate", stat
 
 
 --
--- Data for Name: Sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Sessions" (id, sess) FROM stdin;
+COPY public.sessions (id, sess) FROM stdin;
 \.
 
 
 --
--- Data for Name: TimeTables; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: time_tables; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."TimeTables" (id, title, "startDate", "endDate", "slotSize") FROM stdin;
+COPY public.time_tables (id, title, start_date, end_date, slot_size) FROM stdin;
 1	DevOps Battle 2.2	2020-04-09 18:00:00+00	2020-04-15 17:00:00+00	HOUR
 2	Skolkovo Junior Challenge 2020	2020-02-19 18:00:00+00	2020-02-25 17:00:00+00	HOUR
 3	Moscow JS Meetup	2020-04-16 18:00:00+00	2020-04-21 17:00:00+00	HOUR
@@ -490,10 +490,10 @@ COPY public."TimeTables" (id, title, "startDate", "endDate", "slotSize") FROM st
 
 
 --
--- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Users" (id, name, email, password, role, "imagePath") FROM stdin;
+COPY public.users (id, name, email, password, role, image_path) FROM stdin;
 1	Admin	admin@google.com	admin_passw	ADMIN	user_avatar_1.png
 2	John Doe	joo@google.com	john_passw	USER	user_avatar_2.png
 3	Michail	micha@mail.ru	mich_passw	USER	user_avatar_3.png
@@ -555,131 +555,131 @@ SELECT pg_catalog.setval('public."Users_id_seq"', 15, true);
 
 
 --
--- Name: AttributeValues AttributeValues_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: attribute_values AttributeValues_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."AttributeValues"
+ALTER TABLE ONLY public.attribute_values
     ADD CONSTRAINT "AttributeValues_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: Attributes Attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: attributes Attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Attributes"
+ALTER TABLE ONLY public.attributes
     ADD CONSTRAINT "Attributes_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: Notifications Notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notifications Notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Notifications"
+ALTER TABLE ONLY public.notifications
     ADD CONSTRAINT "Notifications_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: Orders Orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: orders Orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Orders"
+ALTER TABLE ONLY public.orders
     ADD CONSTRAINT "Orders_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: Sessions Sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: sessions Sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Sessions"
+ALTER TABLE ONLY public.sessions
     ADD CONSTRAINT "Sessions_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: TimeTables TimeTables_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: time_tables TimeTables_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."TimeTables"
+ALTER TABLE ONLY public.time_tables
     ADD CONSTRAINT "TimeTables_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: Users Users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users Users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Users"
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT "Users_email_key" UNIQUE (email);
 
 
 --
--- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Users"
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT "Users_pkey" PRIMARY KEY (id);
 
 
 --
--- Name: AttributeValues AttributeValues_attributeId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: attribute_values AttributeValues_attributeId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."AttributeValues"
-    ADD CONSTRAINT "AttributeValues_attributeId_fkey" FOREIGN KEY ("attributeId") REFERENCES public."Attributes"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: AttributeValues AttributeValues_orderId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."AttributeValues"
-    ADD CONSTRAINT "AttributeValues_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES public."Orders"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.attribute_values
+    ADD CONSTRAINT "AttributeValues_attributeId_fkey" FOREIGN KEY (attribute_id) REFERENCES public.attributes(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: AttributeValues AttributeValues_timeTableId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: attribute_values AttributeValues_orderId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."AttributeValues"
-    ADD CONSTRAINT "AttributeValues_timeTableId_fkey" FOREIGN KEY ("timeTableId") REFERENCES public."TimeTables"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: Attributes Attributes_timeTableId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Attributes"
-    ADD CONSTRAINT "Attributes_timeTableId_fkey" FOREIGN KEY ("timeTableId") REFERENCES public."TimeTables"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.attribute_values
+    ADD CONSTRAINT "AttributeValues_orderId_fkey" FOREIGN KEY (order_id) REFERENCES public.orders(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: Notifications Notifications_orderId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: attribute_values AttributeValues_timeTableId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Notifications"
-    ADD CONSTRAINT "Notifications_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES public."Orders"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: Notifications Notifications_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."Notifications"
-    ADD CONSTRAINT "Notifications_userId_fkey" FOREIGN KEY ("userId") REFERENCES public."Users"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.attribute_values
+    ADD CONSTRAINT "AttributeValues_timeTableId_fkey" FOREIGN KEY (time_table_id) REFERENCES public.time_tables(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: Orders Orders_authorId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: attributes Attributes_timeTableId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Orders"
-    ADD CONSTRAINT "Orders_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES public."Users"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.attributes
+    ADD CONSTRAINT "Attributes_timeTableId_fkey" FOREIGN KEY (time_table_id) REFERENCES public.time_tables(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: Orders Orders_timeTableId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: notifications Notifications_orderId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public."Orders"
-    ADD CONSTRAINT "Orders_timeTableId_fkey" FOREIGN KEY ("timeTableId") REFERENCES public."TimeTables"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY public.notifications
+    ADD CONSTRAINT "Notifications_orderId_fkey" FOREIGN KEY (order_id) REFERENCES public.orders(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: notifications Notifications_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.notifications
+    ADD CONSTRAINT "Notifications_userId_fkey" FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: orders Orders_authorId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT "Orders_authorId_fkey" FOREIGN KEY (author_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: orders Orders_timeTableId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT "Orders_timeTableId_fkey" FOREIGN KEY (time_table_id) REFERENCES public.time_tables(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

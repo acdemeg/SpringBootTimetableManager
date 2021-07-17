@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="\"Users\"")
+@Table(name= "users",  schema = "public")
 public class User {
 
     @Id
@@ -27,7 +27,7 @@ public class User {
     @Column(name="role", insertable = false, updatable = false)
     private String role;
 
-    @Column(name="\"imagePath\"", updatable = false)
+    @Column(name= "image_path", updatable = false)
     private String imagePath;
 
     public User() {
