@@ -1,0 +1,17 @@
+.tabs a {
+  border-bottom-color: black;
+  color: whitesmoke;
+}
+
+.tabs ul {
+  border-bottom-style: none;
+}
+
+.tabs a:hover {
+  border-bottom-color: black;
+  color: burlywood;
+}
+
+/* select {
+  display:block;
+} */

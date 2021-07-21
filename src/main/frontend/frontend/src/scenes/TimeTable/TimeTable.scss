@@ -1,0 +1,129 @@
+.detailFields {
+  margin: 2% auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.cell {
+  border-style: solid;
+  border-width: 1px 1px 0 0;
+  border-color: gray;
+  min-width: 250px;
+  min-height: 50px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.cell:hover {
+  background-color: skyblue;
+  opacity: 50%;
+}
+
+.orderAccepted {
+  @extend .cell;
+  background-color: mediumaquamarine;
+}
+.orderAccepted:hover {
+  background-color: mediumspringgreen;
+  opacity: unset;
+}
+
+.orderCanceled {
+  @extend .cell;
+  background-color: crimson;
+}
+.orderCanceled:hover {
+  background-color: red;
+  opacity: unset;
+}
+
+.orderCreated {
+  @extend .cell;
+  background-color: darkgray;
+}
+.orderCreated:hover {
+  background-color: gainsboro;
+  opacity: unset;
+}
+
+.timeCell {
+  @extend .cell;
+  min-width: 100px;
+  text-align: center;
+  padding-top: 5%;
+  cursor: default;
+}
+
+.column {
+  border-style: solid;
+  border-width: 0 0 1px 0;
+  border-color: gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.table {
+  margin-bottom: 30vh;
+  display: flex;
+  flex-direction: row;
+  @media (min-width: 1600px) {
+    justify-content: center;
+  }
+}
+
+.timeTable {
+  overflow-x: scroll;
+}
+
+.modalWindow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: whitesmoke;
+  min-height: 300px;
+  min-width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalHeader,
+.modalFooter {
+  padding: 10px 20px;
+  text-align: center;
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+.modalBodyField {
+  margin-bottom: 3%;
+}
+
+.modalHeader {
+  min-height: 50px;
+}
+
+.modalTitle {
+  font-family: 'Courier New';
+  font-size: 15pt;
+}
+
+.modalFooter {
+  align-self: flex-end;
+}
+
+.modalFooter button:last-child {
+  margin-left: 15px;
+}
+
+.buttonModal {
+  padding: 0;
+  border-width: inherit;
+  background-color: inherit;
+}

@@ -1,0 +1,89 @@
+.timeTableInfo {
+  background-color: whitesmoke;
+  box-shadow: 0px 0px 10px black;
+  min-width: 500px;
+  min-height: 200px;
+  margin-top: 10%;
+  border-radius: 20px 20px 5px 5px;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 2%;
+}
+
+.stateTable {
+  height: 30px;
+  border-radius: 20px 20px 0 0;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.conflictOrders {
+  @extend .stateTable;
+  background-color: crimson;
+}
+
+.newOrders {
+  @extend .stateTable;
+  background-color: green;
+}
+
+.oldOrders {
+  @extend .stateTable;
+  background-color: gray;
+}
+
+.conflictOrders:hover {
+  background-color: red;
+  color: black;
+}
+
+.newOrders:hover {
+  background-color: mediumspringgreen;
+  color: black;
+}
+
+.oldOrders:hover {
+  background-color: gainsboro;
+  color: black;
+}
+
+.bodyInfo {
+  padding-left: 20px;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.removeTable {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.slotTitle {
+  font-weight: bold;
+  text-align: center;
+  background-color: gainsboro;
+  font-size: xx-large;
+}
+
+.cartOrder {
+  box-shadow: 0px 0px 10px black;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  min-width: 360px;
+  border-radius: 20px;
+  background-color: aliceblue;
+}
+
+.buttonsCartOrder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

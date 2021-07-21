@@ -1,0 +1,74 @@
+.wrapper {
+  margin-top: 5%;
+}
+
+.wrapperUser {
+  border-width: 20px 0;
+  border-style: solid;
+  border-color: cornflowerblue;
+}
+
+.searchBar {
+  background-color: whitesmoke;
+  min-width: 20%;
+  height: 500px;
+  float: left;
+}
+
+.searchInput {
+  height: 100px;
+  font-size: larger;
+  font-weight: 700;
+  padding-top: 20px;
+}
+
+.userList {
+  background-color: gainsboro;
+  height: 400px;
+  padding-left: 10px;
+  overflow-y: scroll;
+  font-size: larger;
+}
+.profileUser {
+  background-color: whitesmoke;
+  height: 500px;
+}
+
+.ordersUser {
+  margin-bottom: 10%;
+}
+
+.ordersWrapper {
+  margin-top: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.photoWrapper {
+  width: 600px;
+  height: 500px;
+  background-color: antiquewhite;
+  float: left;
+}
+
+.userPhoto {
+  height: 350px;
+  width: 300px;
+  margin: 75px auto;
+}
+
+.userInfo {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 500px;
+  margin-left: 20px;
+  font-size: x-large;
+}
+
+.userLine:hover {
+  background-color: cadetblue;
+}

@@ -1,0 +1,41 @@
+ .profile {
+    background-color: inherit;
+    display: grid;
+    margin: 5% auto;
+  }
+
+  .profile-header {
+    font-size: 30pt;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  .profile-container {
+    margin: 0 auto;
+  }
+
+  .image_container {
+    width: 350px;
+    height: 350px;
+    background-color: antiquewhite;
+    margin-bottom: 5%;
+    border: solid;
+    border-color: burlywood;
+  }
+
+  .profile-field {
+    margin-bottom: 10px;
+    font-size: 20pt;
+  }
+
+  .redact {
+    color: silver;
+    text-decoration: underline;
+    margin-bottom: 12px;
+    margin-left: 20px;
+    width: 50px; 
+  }
+
+  .redact:hover {
+    cursor: pointer
+  } 

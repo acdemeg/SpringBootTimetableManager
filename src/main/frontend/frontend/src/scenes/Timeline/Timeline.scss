@@ -1,0 +1,43 @@
+.title {
+  text-align: center;
+  overflow: hidden;
+  color: gray;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font: bold italic 130% serif;
+}
+
+.title:before,
+.title:after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 20%;
+  height: 3px;
+  background: gainsboro;
+  border: solid #fff;
+  border-width: 0 10px;
+}
+
+.title:before {
+  margin-left: -100%;
+}
+
+.title:after {
+  margin-right: -100%;
+}
+
+.event {
+  box-shadow: 0px 0px 10px black;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 10%;
+  min-width: 360px;
+  border-radius: 20px;
+}
+
+.titleEvent {
+  font-weight: bold;
+}
