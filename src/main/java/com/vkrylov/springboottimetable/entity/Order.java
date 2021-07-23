@@ -1,6 +1,7 @@
 package com.vkrylov.springboottimetable.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,10 +14,10 @@ public class Order {
     private int id;
 
     @Column(name="author_id")
-    private int author_id;
+    private int authorId;
 
     @Column(name="author_name")
-    private String author_name;
+    private String authorName;
 
     @Column(name = "start_date")
     private String startDate;
@@ -30,15 +31,21 @@ public class Order {
     @Column(name="time_table_id")
     private int timeTableId;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="order_id")
+    private List<AttributeValue> attributeValues;
+
     public Order(){}
 
-    public Order(int author_id, String author_name, String startDate, String endDate, String status, int timeTableId) {
-        this.author_id = author_id;
-        this.author_name = author_name;
+    public Order(int authorId, String authorName, String startDate, String endDate,
+                 String status, int timeTableId, List<AttributeValue> attributeValues) {
+        this.authorId = authorId;
+        this.authorName = authorName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
         this.timeTableId = timeTableId;
+        this.attributeValues = attributeValues;
     }
 
     public int getId() {
@@ -49,20 +56,20 @@ public class Order {
         this.id = id;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
-    public String getAuthor_name() {
-        return author_name;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setAuthor_name(String author_name) {
-        this.author_name = author_name;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public String getEndDate() {
@@ -97,16 +104,24 @@ public class Order {
         this.startDate = startDate;
     }
 
+    public List<AttributeValue> getAttributeValues() {
+        return attributeValues;
+    }
+
+    public void setAttributeValues(List<AttributeValue> attributeValues) {
+        this.attributeValues = attributeValues;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id && author_id == order.author_id && timeTableId == order.timeTableId && author_name.equals(order.author_name) && startDate.equals(order.startDate) && endDate.equals(order.endDate) && status.equals(order.status);
+        return id == order.id && authorId == order.authorId && timeTableId == order.timeTableId && authorName.equals(order.authorName) && startDate.equals(order.startDate) && endDate.equals(order.endDate) && status.equals(order.status) && Objects.equals(attributeValues, order.attributeValues);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author_id, author_name, startDate, endDate, status, timeTableId);
+        return Objects.hash(id, authorId, authorName, startDate, endDate, status, timeTableId, attributeValues);
     }
 }

@@ -1,6 +1,7 @@
 package com.vkrylov.springboottimetable.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +24,14 @@ public class TimeTable {
 
     @Column(name="slot_size")
     private String slotSize;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="time_table_id")
+    private List<Attribute> attributes;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="time_table_id")
+    private List<Order> orders;
 
     public TimeTable(){}
 
@@ -73,16 +82,32 @@ public class TimeTable {
         this.slotSize = slotSize;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TimeTable timeTable = (TimeTable) o;
-        return id == timeTable.id && title.equals(timeTable.title) && startDate.equals(timeTable.startDate) && endDate.equals(timeTable.endDate) && slotSize.equals(timeTable.slotSize);
+        return id == timeTable.id && title.equals(timeTable.title) && startDate.equals(timeTable.startDate) && endDate.equals(timeTable.endDate) && slotSize.equals(timeTable.slotSize) && Objects.equals(attributes, timeTable.attributes) && Objects.equals(orders, timeTable.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, startDate, endDate, slotSize);
+        return Objects.hash(id, title, startDate, endDate, slotSize, attributes, orders);
     }
 }
