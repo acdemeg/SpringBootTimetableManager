@@ -1,6 +1,7 @@
 package com.vkrylov.springboottimetable.entity;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,25 +21,26 @@ public class Order {
     private String authorName;
 
     @Column(name = "start_date")
-    private String startDate;
+    private ZonedDateTime startDate;
 
     @Column(name = "end_date")
-    private String endDate;
+    private ZonedDateTime endDate;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "status", insertable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @Column(name="time_table_id")
     private int timeTableId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="order_id")
+    @JoinColumn(name="order_id", referencedColumnName = "id", nullable = false)
     private List<AttributeValue> attributeValues;
 
     public Order(){}
 
-    public Order(int authorId, String authorName, String startDate, String endDate,
-                 String status, int timeTableId, List<AttributeValue> attributeValues) {
+    public Order(int authorId, String authorName, ZonedDateTime startDate, ZonedDateTime endDate,
+                 OrderStatus status, int timeTableId, List<AttributeValue> attributeValues) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.startDate = startDate;
@@ -72,19 +74,19 @@ public class Order {
         this.authorName = authorName;
     }
 
-    public String getEndDate() {
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -96,11 +98,11 @@ public class Order {
         this.timeTableId = timeTableId;
     }
 
-    public String getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 

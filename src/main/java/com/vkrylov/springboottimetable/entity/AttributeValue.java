@@ -15,7 +15,7 @@ public class AttributeValue {
     @Column(name="attribute_id")
     private int attributeId;
 
-    @Column(name="order_id")
+    @Column(name="order_id", insertable = false, updatable = false)
     private int orderId;
 
     @Column(name="time_table_id")

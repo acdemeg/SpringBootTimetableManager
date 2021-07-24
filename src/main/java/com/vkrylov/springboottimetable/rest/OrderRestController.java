@@ -33,6 +33,8 @@ public class OrderRestController {
 
     @PostMapping("/orders")
     public Order addNewOrder(@RequestBody Order order){
+//         orderRepository.saveOrderNative(order.getAuthorId(), order.getAuthorName(), order.getStartDate(),
+//                order.getEndDate(), order.getStatus(), order.getTimeTableId(), order.getAttributeValues());
         return orderRepository.save(order);
     }
 
