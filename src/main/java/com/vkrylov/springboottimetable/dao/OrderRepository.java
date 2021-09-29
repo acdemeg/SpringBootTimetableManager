@@ -11,14 +11,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@RepositoryRestResource(exported = false)
+//@RepositoryRestResource(exported = false)
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-//    @Query(value =
-//            "INSERT INTO orders (\"id\", \"authorId\", \"authorName\", \"startDate\", \"endDate\", \"timeTableId\") " +
-//            "VALUES (DEFAULT, :autorId, :autorName, :startDate, :endDate, :status, :timeTableId,) RETURNING *",
-//            nativeQuery = true)
-//    Order saveOrderNative(@Param("authorId") int authorId, @Param("authorName") String authorName,
-//                          @Param("startDate") ZonedDateTime startDate, @Param("endDate") ZonedDateTime endDate,
-//                          @Param("status") OrderStatus status, @Param("timeTableId") int timeTableId,
-//                          @Param("attributeValues") List<AttributeValue> attributeValues);
+    //@Query(value = "update public.orders set status='CANCELED'::enum_Orders_status where id=:id", nativeQuery = true)
+    //void updateOrderById(@Param("id") int id);
+    //@Param("status") OrderStatus status,
 }

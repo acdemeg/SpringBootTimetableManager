@@ -3,6 +3,7 @@ package com.vkrylov.springboottimetable.rest;
 import com.vkrylov.springboottimetable.dao.OrderRepository;
 import com.vkrylov.springboottimetable.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,15 +34,15 @@ public class OrderRestController {
 
     @PostMapping("/orders")
     public Order addNewOrder(@RequestBody Order order){
-//         orderRepository.saveOrderNative(order.getAuthorId(), order.getAuthorName(), order.getStartDate(),
-//                order.getEndDate(), order.getStatus(), order.getTimeTableId(), order.getAttributeValues());
         return orderRepository.save(order);
     }
 
     @PatchMapping("/orders/{id}")
-    public Order updateOrder(@PathVariable int id, @RequestBody Order order){
-        Order obj = orderRepository.getById(id);
-        obj.setStatus(order.getStatus());
-        return obj;
+    @Transactional
+    public Order updateOrder(@PathVariable int id, @RequestBody Order order) throws Exception {
+        Optional<Order> obj = orderRepository.findById(id);
+        Order updatedOrder = obj.orElseThrow(Exception::new);
+        updatedOrder.setStatus(order.getStatus());
+        return updatedOrder;
     }
 }
