@@ -1,5 +1,7 @@
 package com.vkrylov.springboottimetable.entity;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +28,7 @@ public class TimeTable {
     private String slotSize;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="time_table_id")
+    @JoinColumn(name="time_table_id", referencedColumnName = "id", nullable = false)
     private List<Attribute> attributes;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

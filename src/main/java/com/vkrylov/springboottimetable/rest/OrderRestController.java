@@ -2,7 +2,6 @@ package com.vkrylov.springboottimetable.rest;
 
 import com.vkrylov.springboottimetable.dao.OrderRepository;
 import com.vkrylov.springboottimetable.entity.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class OrderRestController {
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+
+    public OrderRestController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @GetMapping("/orders")
     public List<Order> showAllOrders(){

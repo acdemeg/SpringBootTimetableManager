@@ -1,5 +1,7 @@
 package com.vkrylov.springboottimetable.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -16,12 +18,13 @@ public class Attribute {
     private String title;
 
     @Column(name="type_attr")
+    @JsonProperty("type_attr")
     private String typeAttr;
 
     @Column(name="is_required")
     private boolean isRequired;
 
-    @Column(name="time_table_id")
+    @Column(name="time_table_id", insertable = false, updatable = false)
     private int timeTableId;
 
     public Attribute() {}
