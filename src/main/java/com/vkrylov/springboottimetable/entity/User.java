@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,15 +31,21 @@ public class User {
     @Column(name= "image_path", updatable = false)
     private String imagePath;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="\"author_id\"")
+    private List<Order> orders;
+
+
     public User() {
     }
 
-    public User(String name, String email, String password, String role, String imagePath) {
+    public User(String name, String email, String password, String role, String imagePath, List<Order> orders) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
         this.imagePath = imagePath;
+        this.orders = orders;
     }
 
     public int getId() {
@@ -89,6 +96,14 @@ public class User {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

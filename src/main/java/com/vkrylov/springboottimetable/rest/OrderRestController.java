@@ -47,4 +47,9 @@ public class OrderRestController {
         updatedOrder.setStatus(order.getStatus());
         return updatedOrder;
     }
+
+    @GetMapping("/users/{id}/orders")
+    public List<Order> getOrdersByUserId(@PathVariable int id){
+        return orderRepository.findAllByAuthorId(id);
+    }
 }
