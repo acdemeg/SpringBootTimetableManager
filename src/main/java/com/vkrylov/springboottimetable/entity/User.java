@@ -13,26 +13,26 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="role", insertable = false, updatable = false)
+    @Column(name = "role", insertable = false, updatable = false)
     private String role;
 
-    @Column(name= "image_path", updatable = false)
+    @Column(name = "image_path", updatable = false)
     private String imagePath;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="\"author_id\"")
+    @JoinColumn(name = "author_id")
     private List<Order> orders;
 
 
@@ -123,16 +123,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id
-                && Objects.equals(name, user.name)
-                && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password)
-                && Objects.equals(role, user.role)
-                && Objects.equals(imagePath, user.imagePath);
+        return id == user.id && name.equals(user.name) && email.equals(user.email) && password.equals(user.password) && role.equals(user.role) && Objects.equals(imagePath, user.imagePath) && Objects.equals(orders, user.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, role, imagePath);
+        return Objects.hash(id, name, email, password, role, imagePath, orders);
     }
 }

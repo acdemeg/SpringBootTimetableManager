@@ -2,6 +2,9 @@ package com.vkrylov.springboottimetable.rest;
 
 import com.vkrylov.springboottimetable.dao.OrderRepository;
 import com.vkrylov.springboottimetable.entity.Order;
+import com.vkrylov.springboottimetable.entity.User;
+import com.vkrylov.springboottimetable.exception.AppException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +28,8 @@ public class OrderRestController {
 
     @GetMapping("/orders/{id}")
     public Order getOrder(@PathVariable int id){
-        Optional<Order> order = orderRepository.findById(id);
-        return order.orElse(new Order());
+        return orderRepository.findById(id).orElseThrow(
+                () -> new AppException("Order with id = " + id + " not found"));
     }
 
     @DeleteMapping("/orders/{id}")
@@ -36,14 +39,21 @@ public class OrderRestController {
 
     @PostMapping("/orders")
     public Order addNewOrder(@RequestBody Order order){
-        return orderRepository.save(order);
+        Order saveOrder;
+        try {
+            saveOrder = orderRepository.save(order);
+        }catch (DataAccessException ex){
+            throw new AppException(ex.getMessage());
+        }
+        return saveOrder;
     }
 
     @PatchMapping("/orders/{id}")
     @Transactional
-    public Order updateOrder(@PathVariable int id, @RequestBody Order order) throws Exception {
+    public Order updateOrder(@PathVariable int id, @RequestBody Order order) {
         Optional<Order> obj = orderRepository.findById(id);
-        Order updatedOrder = obj.orElseThrow(Exception::new);
+        Order updatedOrder = obj.orElseThrow(
+                () -> new AppException("Order with id = " + id + " not found"));
         updatedOrder.setStatus(order.getStatus());
         return updatedOrder;
     }

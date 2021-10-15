@@ -2,6 +2,7 @@ package com.vkrylov.springboottimetable.rest;
 
 import com.vkrylov.springboottimetable.dao.TimeTableRepository;
 import com.vkrylov.springboottimetable.entity.TimeTable;
+import com.vkrylov.springboottimetable.exception.AppException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -18,8 +19,9 @@ public class TimeTableRestController {
     }
 
     @GetMapping("/timeTables/{id}")
-    public Optional<TimeTable> getTimeTableById(@PathVariable int id){
-        return timeTableRepository.findById(id);
+    public TimeTable getTimeTableById(@PathVariable int id){
+        return timeTableRepository.findById(id).orElseThrow(
+                () -> new AppException("TimeTable with id = " + id + " not found"));
     }
 
     @GetMapping("/timeTables")
@@ -39,9 +41,10 @@ public class TimeTableRestController {
 
     @PatchMapping("/timetables/{id}")
     @Transactional
-    public TimeTable updateTimeTableTitle(@PathVariable int id, @RequestBody TimeTable timeTable) throws Exception {
+    public TimeTable updateTimeTableTitle(@PathVariable int id, @RequestBody TimeTable timeTable){
         Optional<TimeTable> obj = timeTableRepository.findById(id);
-        TimeTable updatedTimeTable = obj.orElseThrow(Exception::new);
+        TimeTable updatedTimeTable = obj.orElseThrow(
+                () -> new AppException("TimeTable with id = " + id + " not found"));
         updatedTimeTable.setTitle(timeTable.getTitle());
         return updatedTimeTable;
     }

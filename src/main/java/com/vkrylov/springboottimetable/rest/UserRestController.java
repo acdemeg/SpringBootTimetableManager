@@ -1,8 +1,9 @@
 package com.vkrylov.springboottimetable.rest;
 
 import com.vkrylov.springboottimetable.dao.UserRepository;
-import com.vkrylov.springboottimetable.entity.Order;
 import com.vkrylov.springboottimetable.entity.User;
+import com.vkrylov.springboottimetable.exception.AppException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,10 @@ public class UserRestController {
     }
 
     @GetMapping("/users/{id}")
-    public Optional<User> getUserById(@PathVariable int id){
-        return userRepository.findById(id);
+    public User getUserById(@PathVariable int id){
+
+        return userRepository.findById(id).orElseThrow(
+                () -> new AppException("User with id = " + id + " not found"));
     }
 
     @GetMapping("/users")
@@ -33,17 +36,23 @@ public class UserRestController {
         userRepository.deleteById(id);
     }
 
-    //todo email can't be coincide
     @PostMapping("/users/register")
     public User regUser(@RequestBody User user){
-        return userRepository.save(user);
+        User saveUser;
+        try {
+            saveUser = userRepository.save(user);
+        }catch (DataAccessException ex){
+            throw new AppException(ex.getMessage());
+        }
+        return saveUser;
     }
 
     @PatchMapping("/users/{id}")
     @Transactional
-    public User updateUserProfile(@PathVariable int id, @RequestBody User user) throws Exception {
+    public User updateUserProfile(@PathVariable int id, @RequestBody User user){
         Optional<User> obj = userRepository.findById(id);
-        User updatedUser = obj.orElseThrow(Exception::new);
+        User updatedUser = obj.orElseThrow(
+                () -> new AppException("User with id = " + id + " not found"));
         updatedUser.setName(user.getName());
         return updatedUser;
     }

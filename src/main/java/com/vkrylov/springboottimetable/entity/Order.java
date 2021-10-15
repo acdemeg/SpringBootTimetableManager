@@ -14,7 +14,7 @@ public class Order {
     @Column(name="id")
     private int id;
 
-    @Column(name="author_id")
+    @Column(name="author_id", unique = true)
     private int authorId;
 
     @Column(name="author_name")
@@ -39,8 +39,7 @@ public class Order {
 
     public Order(){}
 
-    public Order(int authorId, String authorName, ZonedDateTime startDate, ZonedDateTime endDate,
-                 OrderStatus status, int timeTableId, List<AttributeValue> attributeValues) {
+    public Order(int authorId, String authorName, ZonedDateTime startDate, ZonedDateTime endDate, OrderStatus status, int timeTableId, List<AttributeValue> attributeValues) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.startDate = startDate;
