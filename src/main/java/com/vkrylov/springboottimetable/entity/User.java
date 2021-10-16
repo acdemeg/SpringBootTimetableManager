@@ -35,17 +35,22 @@ public class User {
     @JoinColumn(name = "author_id")
     private List<Order> orders;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Notification> notifications;
+
 
     public User() {
     }
 
-    public User(String name, String email, String password, String role, String imagePath, List<Order> orders) {
+    public User(String name, String email, String password, String role, String imagePath, List<Order> orders, List<Notification> notifications) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
         this.imagePath = imagePath;
         this.orders = orders;
+        this.notifications = notifications;
     }
 
     public int getId() {
@@ -118,16 +123,24 @@ public class User {
                 '}';
     }
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && name.equals(user.name) && email.equals(user.email) && password.equals(user.password) && role.equals(user.role) && Objects.equals(imagePath, user.imagePath) && Objects.equals(orders, user.orders);
+        return id == user.id && name.equals(user.name) && email.equals(user.email) && password.equals(user.password) && role.equals(user.role) && Objects.equals(imagePath, user.imagePath) && Objects.equals(orders, user.orders) && Objects.equals(notifications, user.notifications);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, role, imagePath, orders);
+        return Objects.hash(id, name, email, password, role, imagePath, orders, notifications);
     }
 }

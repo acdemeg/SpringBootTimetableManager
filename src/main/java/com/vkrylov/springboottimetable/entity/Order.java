@@ -37,9 +37,14 @@ public class Order {
     @JoinColumn(name="order_id", referencedColumnName = "id", nullable = false)
     private List<AttributeValue> attributeValues;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", nullable = false)
+    private List<Notification> notifications;
+
+
     public Order(){}
 
-    public Order(int authorId, String authorName, ZonedDateTime startDate, ZonedDateTime endDate, OrderStatus status, int timeTableId, List<AttributeValue> attributeValues) {
+    public Order(int authorId, String authorName, ZonedDateTime startDate, ZonedDateTime endDate, OrderStatus status, int timeTableId, List<AttributeValue> attributeValues, List<Notification> notifications) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.startDate = startDate;
@@ -47,6 +52,7 @@ public class Order {
         this.status = status;
         this.timeTableId = timeTableId;
         this.attributeValues = attributeValues;
+        this.notifications = notifications;
     }
 
     public int getId() {
@@ -113,16 +119,24 @@ public class Order {
         this.attributeValues = attributeValues;
     }
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id && authorId == order.authorId && timeTableId == order.timeTableId && authorName.equals(order.authorName) && startDate.equals(order.startDate) && endDate.equals(order.endDate) && status.equals(order.status) && Objects.equals(attributeValues, order.attributeValues);
+        return id == order.id && authorId == order.authorId && timeTableId == order.timeTableId && authorName.equals(order.authorName) && startDate.equals(order.startDate) && endDate.equals(order.endDate) && status == order.status && Objects.equals(attributeValues, order.attributeValues) && Objects.equals(notifications, order.notifications);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, authorId, authorName, startDate, endDate, status, timeTableId, attributeValues);
+        return Objects.hash(id, authorId, authorName, startDate, endDate, status, timeTableId, attributeValues, notifications);
     }
 }

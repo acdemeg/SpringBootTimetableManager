@@ -2,7 +2,6 @@ package com.vkrylov.springboottimetable.rest;
 
 import com.vkrylov.springboottimetable.dao.OrderRepository;
 import com.vkrylov.springboottimetable.entity.Order;
-import com.vkrylov.springboottimetable.entity.User;
 import com.vkrylov.springboottimetable.exception.AppException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;

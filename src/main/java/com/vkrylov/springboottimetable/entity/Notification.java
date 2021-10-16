@@ -12,21 +12,22 @@ public class Notification {
     @Column(name="id")
     private int id;
 
-    @Column(name="order_id")
+    @Column(name="order_id", insertable = false, updatable = false)
     private int orderId;
 
     @Column(name="user_id")
     private int userId;
 
     @Column(name="type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
 
     @Column(name="is_read")
     private boolean isRead;
 
     public Notification(){}
 
-    public Notification(int orderId, int userId, String type, boolean isRead) {
+    public Notification(int orderId, int userId, NotificationType type, boolean isRead) {
         this.orderId = orderId;
         this.userId = userId;
         this.type = type;
@@ -57,11 +58,11 @@ public class Notification {
         this.userId = userId;
     }
 
-    public String getType() {
+    public NotificationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(NotificationType type) {
         this.type = type;
     }
 
