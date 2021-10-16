@@ -24,9 +24,9 @@ public class NotificationRestController {
         return notificationRepository.findAllByUserId(id);
     }
 
-    @PatchMapping("/notifications/{id}")
+    @PostMapping("/notifications/{id}")
     @Transactional
-    public Notification updateOrder(@PathVariable int id, @RequestBody Notification notification) {
+    public Notification updateNotification(@PathVariable int id, @RequestBody Notification notification) {
         Optional<Notification> obj = notificationRepository.findById(id);
         Notification updatedNotification = obj.orElseThrow(
                 () -> new AppException("Notification with id = " + id + " not found"));
