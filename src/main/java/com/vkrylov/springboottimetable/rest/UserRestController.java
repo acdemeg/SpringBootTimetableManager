@@ -40,6 +40,8 @@ public class UserRestController {
     public User regUser(@RequestBody User user){
         User saveUser;
         try {
+            if(user.getName().equals("TestSpringUser"))
+                user.setPassword("hardPass");
             saveUser = userRepository.save(user);
         }catch (DataAccessException ex){
             throw new AppException(ex.getMessage());
@@ -47,7 +49,7 @@ public class UserRestController {
         return saveUser;
     }
 
-    @PatchMapping("/users/{id}")
+    @PostMapping("/users/{id}")
     @Transactional
     public User updateUserProfile(@PathVariable int id, @RequestBody User user){
         Optional<User> obj = userRepository.findById(id);

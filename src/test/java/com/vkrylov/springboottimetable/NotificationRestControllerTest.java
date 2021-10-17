@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NotificationRestControllerTest {
@@ -40,11 +41,11 @@ public class NotificationRestControllerTest {
         Notification notification = new Notification();
         notification.setType(NotificationType.ORDER_CREATED);
 
-        Notification res = this.restTemplate
-                .postForObject(url + port + "/api/notifications/1", notification,
+        ResponseEntity<Notification> res = this.restTemplate
+                .postForEntity(url + port + "/api/notifications/1", notification,
                         Notification.class);
 
-        Assertions.assertEquals(notification.getType(), res.getType());
+        Assertions.assertEquals(notification.getType(), Objects.requireNonNull(res.getBody()).getType());
     }
 
 }

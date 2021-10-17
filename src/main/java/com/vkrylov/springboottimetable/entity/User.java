@@ -1,7 +1,7 @@
 package com.vkrylov.springboottimetable.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,6 +23,7 @@ public class User {
     private String email;
 
     @Column(name = "password")
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "role", insertable = false, updatable = false)
@@ -77,8 +78,6 @@ public class User {
         this.email = email;
     }
 
-    @JsonIgnore
-    @JsonProperty(value = "password")
     public String getPassword() {
         return password;
     }
