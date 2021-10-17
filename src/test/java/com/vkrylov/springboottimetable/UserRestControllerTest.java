@@ -75,8 +75,7 @@ public class UserRestControllerTest {
     }
 
     @Test
-    public void updateUserProfileTest()
-    {
+    public void updateUserProfileTest() {
         User user = new User();
         user.setName("Michael");
         /*

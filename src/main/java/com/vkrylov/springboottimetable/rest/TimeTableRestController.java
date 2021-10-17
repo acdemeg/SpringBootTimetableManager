@@ -18,13 +18,13 @@ public class TimeTableRestController {
         this.timeTableRepository = timeTableRepository;
     }
 
-    @GetMapping("/timeTables/{id}")
+    @GetMapping("/timetables/{id}")
     public TimeTable getTimeTableById(@PathVariable int id){
         return timeTableRepository.findById(id).orElseThrow(
                 () -> new AppException("TimeTable with id = " + id + " not found"));
     }
 
-    @GetMapping("/timeTables")
+    @GetMapping("/timetables")
     public List<TimeTable> getAllTimeTables(){
         return timeTableRepository.findAll();
     }
@@ -39,7 +39,7 @@ public class TimeTableRestController {
         return timeTableRepository.save(timeTable);
     }
 
-    @PatchMapping("/timetables/{id}")
+    @PostMapping("/timetables/{id}")
     @Transactional
     public TimeTable updateTimeTableTitle(@PathVariable int id, @RequestBody TimeTable timeTable){
         Optional<TimeTable> obj = timeTableRepository.findById(id);
