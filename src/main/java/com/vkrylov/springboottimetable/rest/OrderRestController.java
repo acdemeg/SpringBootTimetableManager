@@ -47,7 +47,7 @@ public class OrderRestController {
         return saveOrder;
     }
 
-    @PatchMapping("/orders/{id}")
+    @PostMapping("/orders/{id}")
     @Transactional
     public Order updateOrder(@PathVariable int id, @RequestBody Order order) {
         Optional<Order> obj = orderRepository.findById(id);
