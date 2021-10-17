@@ -1,7 +1,5 @@
 package com.vkrylov.springboottimetable.entity;
 
-import org.hibernate.annotations.ColumnTransformer;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;

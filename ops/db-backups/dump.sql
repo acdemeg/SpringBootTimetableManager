@@ -17,72 +17,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: enum_Attributes_type; Type: TYPE; Schema: public; Owner: postgres
---
-
-CREATE TYPE public."enum_Attributes_type" AS ENUM (
-    'CREATED',
-    'ACCEPTED',
-    'CANCELED'
-);
-
-
-ALTER TYPE public."enum_Attributes_type" OWNER TO postgres;
-
---
--- Name: enum_Attributes_type_attr; Type: TYPE; Schema: public; Owner: postgres
---
-
-CREATE TYPE public."enum_Attributes_type_attr" AS ENUM (
-    'AAA',
-    'SSS',
-    'DDD'
-);
-
-
-ALTER TYPE public."enum_Attributes_type_attr" OWNER TO postgres;
-
---
--- Name: enum_Notifications_type; Type: TYPE; Schema: public; Owner: postgres
---
-
-CREATE TYPE public."enum_Notifications_type" AS ENUM (
-    'ORDER_CREATED',
-    'ORDER_ACCEPTED',
-    'ORDER_CANCELED',
-    'ORDER_DELETED'
-);
-
-
-ALTER TYPE public."enum_Notifications_type" OWNER TO postgres;
-
---
--- Name: enum_Orders_status; Type: TYPE; Schema: public; Owner: postgres
---
-
-CREATE TYPE public."enum_Orders_status" AS ENUM (
-    'CREATED',
-    'ACCEPTED',
-    'CANCELED'
-);
-
-
-ALTER TYPE public."enum_Orders_status" OWNER TO postgres;
-
---
--- Name: enum_TimeTables_slotSize; Type: TYPE; Schema: public; Owner: postgres
---
-
-CREATE TYPE public."enum_TimeTables_slotSize" AS ENUM (
-    'HOUR',
-    'DAY',
-    'WEEK'
-);
-
-
-ALTER TYPE public."enum_TimeTables_slotSize" OWNER TO postgres;
-
---
 -- Name: enum_Users_role; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -180,7 +114,7 @@ CREATE TABLE public.notifications (
     id integer NOT NULL,
     order_id integer NOT NULL,
     user_id integer NOT NULL,
-    type public."enum_Notifications_type" NOT NULL,
+    type character varying(255) NOT NULL,
     is_read boolean NOT NULL
 );
 
@@ -219,7 +153,7 @@ CREATE TABLE public.orders (
     author_name character varying(255) NOT NULL,
     start_date timestamp with time zone NOT NULL,
     end_date timestamp with time zone NOT NULL,
-    status public."enum_Orders_status" DEFAULT 'CREATED'::public."enum_Orders_status" NOT NULL,
+    status character varying(255) DEFAULT 'CREATED'::character varying NOT NULL,
     time_table_id integer NOT NULL
 );
 
@@ -255,9 +189,9 @@ ALTER SEQUENCE public."Orders_id_seq" OWNED BY public.orders.id;
 CREATE TABLE public.time_tables (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
-    start_date timestamp with time zone NOT NULL,
-    end_date timestamp with time zone NOT NULL,
-    slot_size public."enum_TimeTables_slotSize" NOT NULL
+    start_date character varying(255) NOT NULL,
+    end_date character varying(255) NOT NULL,
+    slot_size character varying(255) NOT NULL
 );
 
 
@@ -402,6 +336,8 @@ COPY public.attribute_values (id, time_table_id, attribute_id, order_id, value) 
 18	3	5	13	Moscow meetup
 19	4	6	14	Day of Remembrance Smalltalk
 20	4	6	20	Day of Linux Admins
+24	1	1	30	JS Challenge
+25	1	2	30	20
 \.
 
 
@@ -425,9 +361,9 @@ COPY public.attributes (id, title, type_attr, is_required, time_table_id) FROM s
 --
 
 COPY public.notifications (id, order_id, user_id, type, is_read) FROM stdin;
-1	2	2	ORDER_CREATED	f
 2	2	2	ORDER_CANCELED	f
 3	3	2	ORDER_ACCEPTED	f
+1	2	2	ORDER_CREATED	f
 \.
 
 
@@ -437,7 +373,6 @@ COPY public.notifications (id, order_id, user_id, type, is_read) FROM stdin;
 
 COPY public.orders (id, author_id, author_name, start_date, end_date, status, time_table_id) FROM stdin;
 1	1	Admin	2020-04-14 19:00:00+00	2020-04-14 20:00:00+00	ACCEPTED	1
-2	2	John Doe	2020-04-09 19:00:00+00	2020-04-09 20:00:00+00	CREATED	1
 3	2	John Doe	2020-04-12 19:00:00+00	2020-04-12 20:00:00+00	CREATED	1
 4	3	Michail	2020-06-08 18:00:00+00	2020-06-08 19:00:00+00	CREATED	4
 5	3	Michail	2020-09-03 01:00:00+00	2020-09-03 02:00:00+00	CREATED	8
@@ -462,6 +397,8 @@ COPY public.orders (id, author_id, author_name, start_date, end_date, status, ti
 24	1	Admin	2020-07-29 18:00:00+00	2020-07-30 18:00:00+00	ACCEPTED	5
 25	4	Ivan	2020-07-24 18:00:00+00	2020-07-25 18:00:00+00	CREATED	5
 26	4	Ivan	2020-07-31 18:00:00+00	2020-08-01 18:00:00+00	CANCELED	5
+30	1	Admin	2020-04-11 16:00:00+00	2020-04-11 17:00:00+00	CANCELED	1
+2	2	John Doe	2020-04-09 19:00:00+00	2020-04-09 20:00:00+00	CREATED	1
 \.
 
 
@@ -496,7 +433,6 @@ COPY public.time_tables (id, title, start_date, end_date, slot_size) FROM stdin;
 COPY public.users (id, name, email, password, role, image_path) FROM stdin;
 1	Admin	admin@google.com	admin_passw	ADMIN	user_avatar_1.png
 2	John Doe	joo@google.com	john_passw	USER	user_avatar_2.png
-3	Michail	micha@mail.ru	mich_passw	USER	user_avatar_3.png
 4	Ivan	iv@mail.ru	iv_passw	USER	user_avatar_4.png
 5	Petr	Petr@mail.ru	Petr_passw	USER	user_avatar_5.png
 6	Dima	Dima@mail.ru	Dima_passw	USER	user_avatar_6.png
@@ -509,6 +445,7 @@ COPY public.users (id, name, email, password, role, image_path) FROM stdin;
 13	Polina	Polina@mail.ru	Polina_passw	USER	user_avatar_13.png
 14	Achmed	Achmed@mail.ru	Achmed_passw	USER	user_avatar_14.png
 15	Kim_Chen_In	Kim_Chen_In@mail.ru	Kim_Chen_In_passw	USER	user_avatar_15.png
+3	Michael	micha@mail.ru	mich_passw	USER	user_avatar_3.png
 \.
 
 
@@ -516,14 +453,14 @@ COPY public.users (id, name, email, password, role, image_path) FROM stdin;
 -- Name: AttributeValues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."AttributeValues_id_seq"', 20, true);
+SELECT pg_catalog.setval('public."AttributeValues_id_seq"', 33, true);
 
 
 --
 -- Name: Attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Attributes_id_seq"', 7, true);
+SELECT pg_catalog.setval('public."Attributes_id_seq"', 20, true);
 
 
 --
@@ -537,21 +474,21 @@ SELECT pg_catalog.setval('public."Notifications_id_seq"', 3, true);
 -- Name: Orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Orders_id_seq"', 26, true);
+SELECT pg_catalog.setval('public."Orders_id_seq"', 34, true);
 
 
 --
 -- Name: TimeTables_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."TimeTables_id_seq"', 8, true);
+SELECT pg_catalog.setval('public."TimeTables_id_seq"', 21, true);
 
 
 --
 -- Name: Users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Users_id_seq"', 15, true);
+SELECT pg_catalog.setval('public."Users_id_seq"', 51, true);
 
 
 --
