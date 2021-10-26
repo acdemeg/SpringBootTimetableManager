@@ -1,0 +1,13 @@
+package com.vkrylov.springboottimetable.rest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class StaticMvcController {
+    @SuppressWarnings("SpringMVCViewInspection")
+    @RequestMapping( value = "/")
+    public String index() {
+        return "index.html";
+    }
+}
