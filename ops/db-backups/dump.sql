@@ -21,7 +21,7 @@ SET row_security = off;
 --
 
 CREATE TYPE public."enum_Users_role" AS ENUM (
-    'USER',
+    'ROLE_USER',
     'ADMIN'
 );
 
@@ -228,7 +228,7 @@ CREATE TABLE public.users (
     name character varying(255) NOT NULL,
     email character varying(255) NOT NULL,
     password character varying(255) NOT NULL,
-    role public."enum_Users_role" DEFAULT 'USER'::public."enum_Users_role" NOT NULL,
+    role public."enum_Users_role" DEFAULT 'ROLE_USER'::public."enum_Users_role" NOT NULL,
     image_path character varying(255)
 );
 

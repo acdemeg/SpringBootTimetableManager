@@ -4,6 +4,7 @@ import com.vkrylov.springboottimetable.dao.OrderRepository;
 import com.vkrylov.springboottimetable.entity.Order;
 import com.vkrylov.springboottimetable.exception.AppException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@PreAuthorize("hasAnyAuthority('order:post', 'order:delete')")
 public class OrderRestController {
     private final OrderRepository orderRepository;
 

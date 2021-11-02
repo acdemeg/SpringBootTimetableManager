@@ -3,6 +3,7 @@ package com.vkrylov.springboottimetable.rest;
 import com.vkrylov.springboottimetable.dao.NotificationRepository;
 import com.vkrylov.springboottimetable.entity.Notification;
 import com.vkrylov.springboottimetable.exception.AppException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class NotificationRestController {
 
     @PostMapping("/notifications/{id}")
     @Transactional
+    @PreAuthorize("hasAuthority('notification:post')")
     public Notification updateNotification(@PathVariable int id, @RequestBody Notification notification) {
         Optional<Notification> obj = notificationRepository.findById(id);
         Notification updatedNotification = obj.orElseThrow(

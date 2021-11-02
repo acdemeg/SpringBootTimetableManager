@@ -4,6 +4,7 @@ import com.vkrylov.springboottimetable.dao.UserRepository;
 import com.vkrylov.springboottimetable.entity.User;
 import com.vkrylov.springboottimetable.exception.AppException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ public class UserRestController {
     }
 
     @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('user:delete')")
     public void deleteUser(@PathVariable int id){
         userRepository.deleteById(id);
     }
@@ -49,6 +51,7 @@ public class UserRestController {
         return saveUser;
     }
 
+    @PreAuthorize("hasAuthority('user:post')")
     @PostMapping("/users/{id}")
     @Transactional
     public User updateUserProfile(@PathVariable int id, @RequestBody User user){

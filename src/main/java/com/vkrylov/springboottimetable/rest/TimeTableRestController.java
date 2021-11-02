@@ -3,8 +3,10 @@ package com.vkrylov.springboottimetable.rest;
 import com.vkrylov.springboottimetable.dao.TimeTableRepository;
 import com.vkrylov.springboottimetable.entity.TimeTable;
 import com.vkrylov.springboottimetable.exception.AppException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,17 +32,20 @@ public class TimeTableRestController {
     }
 
     @DeleteMapping("/timetables/{id}")
+    @PreAuthorize("hasAuthority('timetable:delete')")
     public void deleteTimeTable(@PathVariable int id){
         timeTableRepository.deleteById(id);
     }
 
     @PostMapping("/timetables")
+    @PreAuthorize("hasAuthority('timetable:post')")
     public TimeTable createNewTimeTable(@RequestBody TimeTable timeTable){
         return timeTableRepository.save(timeTable);
     }
 
     @PostMapping("/timetables/{id}")
     @Transactional
+    @PreAuthorize("hasAuthority('timetable:post')")
     public TimeTable updateTimeTableTitle(@PathVariable int id, @RequestBody TimeTable timeTable){
         Optional<TimeTable> obj = timeTableRepository.findById(id);
         TimeTable updatedTimeTable = obj.orElseThrow(
