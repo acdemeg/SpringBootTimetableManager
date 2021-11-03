@@ -1,4 +1,4 @@
-package com.vkrylov.springboottimetable.entity;
+package com.vkrylov.springboottimetable.entities;
 
 public enum OrderStatus {
  ACCEPTED, CREATED, CANCELED

@@ -1,8 +1,8 @@
 package com.vkrylov.springboottimetable;
 
-import com.vkrylov.springboottimetable.entity.AttributeValue;
-import com.vkrylov.springboottimetable.entity.Order;
-import com.vkrylov.springboottimetable.entity.OrderStatus;
+import com.vkrylov.springboottimetable.entities.AttributeValue;
+import com.vkrylov.springboottimetable.entities.Order;
+import com.vkrylov.springboottimetable.entities.OrderStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

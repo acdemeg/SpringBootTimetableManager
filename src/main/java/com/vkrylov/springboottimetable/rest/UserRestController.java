@@ -1,13 +1,16 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.dao.UserRepository;
-import com.vkrylov.springboottimetable.entity.User;
-import com.vkrylov.springboottimetable.exception.AppException;
+import com.vkrylov.springboottimetable.repositories.UserRepository;
+import com.vkrylov.springboottimetable.entities.User;
+import com.vkrylov.springboottimetable.exceptions.AppException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 

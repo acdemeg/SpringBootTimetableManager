@@ -1,6 +1,6 @@
-package com.vkrylov.springboottimetable.dao;
+package com.vkrylov.springboottimetable.repositories;
 
-import com.vkrylov.springboottimetable.entity.AttributeValue;
+import com.vkrylov.springboottimetable.entities.AttributeValue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

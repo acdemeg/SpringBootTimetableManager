@@ -1,8 +1,8 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.dao.NotificationRepository;
-import com.vkrylov.springboottimetable.entity.Notification;
-import com.vkrylov.springboottimetable.exception.AppException;
+import com.vkrylov.springboottimetable.repositories.NotificationRepository;
+import com.vkrylov.springboottimetable.entities.Notification;
+import com.vkrylov.springboottimetable.exceptions.AppException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.vkrylov.springboottimetable.entity;
+package com.vkrylov.springboottimetable.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;

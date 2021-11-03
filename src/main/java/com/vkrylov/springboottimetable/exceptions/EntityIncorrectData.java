@@ -1,4 +1,4 @@
-package com.vkrylov.springboottimetable.exception;
+package com.vkrylov.springboottimetable.exceptions;
 
 public class EntityIncorrectData {
 

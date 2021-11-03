@@ -1,4 +1,4 @@
-package com.vkrylov.springboottimetable.entity;
+package com.vkrylov.springboottimetable.entities;
 
 public enum Permission {
     USER_POST("user:post"),

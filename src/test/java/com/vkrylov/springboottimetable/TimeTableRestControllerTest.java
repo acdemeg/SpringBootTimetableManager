@@ -1,7 +1,7 @@
 package com.vkrylov.springboottimetable;
 
-import com.vkrylov.springboottimetable.entity.Attribute;
-import com.vkrylov.springboottimetable.entity.TimeTable;
+import com.vkrylov.springboottimetable.entities.Attribute;
+import com.vkrylov.springboottimetable.entities.TimeTable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

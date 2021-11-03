@@ -1,7 +1,7 @@
 package com.vkrylov.springboottimetable;
 
-import com.vkrylov.springboottimetable.entity.Notification;
-import com.vkrylov.springboottimetable.entity.NotificationType;
+import com.vkrylov.springboottimetable.entities.Notification;
+import com.vkrylov.springboottimetable.entities.NotificationType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

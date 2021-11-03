@@ -1,4 +1,4 @@
-package com.vkrylov.springboottimetable.exception;
+package com.vkrylov.springboottimetable.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

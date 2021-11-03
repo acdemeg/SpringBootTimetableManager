@@ -1,4 +1,4 @@
-package com.vkrylov.springboottimetable.entity;
+package com.vkrylov.springboottimetable.entities;
 
 import javax.persistence.*;
 import java.util.List;

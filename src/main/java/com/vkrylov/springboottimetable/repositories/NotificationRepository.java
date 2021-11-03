@@ -1,6 +1,6 @@
-package com.vkrylov.springboottimetable.dao;
+package com.vkrylov.springboottimetable.repositories;
 
-import com.vkrylov.springboottimetable.entity.Notification;
+import com.vkrylov.springboottimetable.entities.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

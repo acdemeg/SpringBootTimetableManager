@@ -1,8 +1,8 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.dao.OrderRepository;
-import com.vkrylov.springboottimetable.entity.Order;
-import com.vkrylov.springboottimetable.exception.AppException;
+import com.vkrylov.springboottimetable.repositories.OrderRepository;
+import com.vkrylov.springboottimetable.entities.Order;
+import com.vkrylov.springboottimetable.exceptions.AppException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasAnyAuthority('order:post', 'order:delete')")
 public class OrderRestController {
     private final OrderRepository orderRepository;
 
@@ -34,11 +33,13 @@ public class OrderRestController {
     }
 
     @DeleteMapping("/orders/{id}")
+    @PreAuthorize("hasAuthority('order:delete')")
     public void deleteOrder(@PathVariable int id){
         orderRepository.deleteById(id);
     }
 
     @PostMapping("/orders")
+    @PreAuthorize("hasAuthority('order:post')")
     public Order addNewOrder(@RequestBody Order order){
         Order saveOrder;
         try {
@@ -50,6 +51,7 @@ public class OrderRestController {
     }
 
     @PostMapping("/orders/{id}")
+    @PreAuthorize("hasAuthority('order:post')")
     @Transactional
     public Order updateOrder(@PathVariable int id, @RequestBody Order order) {
         Optional<Order> obj = orderRepository.findById(id);
