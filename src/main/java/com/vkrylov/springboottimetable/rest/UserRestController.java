@@ -1,16 +1,12 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.repositories.UserRepository;
 import com.vkrylov.springboottimetable.entities.User;
 import com.vkrylov.springboottimetable.exceptions.AppException;
-import org.springframework.dao.DataAccessException;
+import com.vkrylov.springboottimetable.repositories.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +21,6 @@ public class UserRestController {
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable int id){
-
         return userRepository.findById(id).orElseThrow(
                 () -> new AppException("User with id = " + id + " not found"));
     }
@@ -43,21 +38,14 @@ public class UserRestController {
 
     @PostMapping("/users/register")
     public User regUser(@RequestBody User user){
-        User saveUser;
-        try {
-            if(user.getName().equals("TestSpringUser"))
-                user.setPassword("hardPass");
-            saveUser = userRepository.save(user);
-        }catch (DataAccessException ex){
-            throw new AppException(ex.getMessage());
-        }
-        return saveUser;
+        return userRepository.save(user);
     }
 
-    @PreAuthorize("hasAuthority('user:post')")
     @PostMapping("/users/{id}")
     @Transactional
+    @PreAuthorize("hasAuthority('user:post') and @authComponent.hasPermission(authentication, #id)")
     public User updateUserProfile(@PathVariable int id, @RequestBody User user){
+
         Optional<User> obj = userRepository.findById(id);
         User updatedUser = obj.orElseThrow(
                 () -> new AppException("User with id = " + id + " not found"));

@@ -6,12 +6,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum UserRole {
-    USER(Set.of(Permission.USER_POST, Permission.ORDER_DELETE, Permission.ORDER_POST,
-            Permission.NOTIFICATION_POST, Permission.NOTIFICATION_DELETE)),
+    USER(Set.of(Permission.USER_POST, Permission.ORDER_POST,
+            Permission.NOTIFICATION_POST, Permission.NOTIFICATION_DELETE, Permission.USER)),
 
     ADMIN(Set.of(Permission.USER_POST, Permission.USER_DELETE, Permission.TIMETABLE_POST,
-            Permission.TIMETABLE_DELETE, Permission.ORDER_DELETE, Permission.ORDER_POST,
-            Permission.NOTIFICATION_POST, Permission.NOTIFICATION_DELETE));
+            Permission.TIMETABLE_DELETE, Permission.ORDER_DELETE, Permission.ORDER_POST, Permission.USER,
+            Permission.NOTIFICATION_POST, Permission.NOTIFICATION_DELETE, Permission.ADMIN));
 
     private final Set<Permission> permissions;
 

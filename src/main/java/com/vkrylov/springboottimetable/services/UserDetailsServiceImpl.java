@@ -1,7 +1,7 @@
 package com.vkrylov.springboottimetable.services;
 
-import com.vkrylov.springboottimetable.repositories.UserRepository;
 import com.vkrylov.springboottimetable.entities.User;
+import com.vkrylov.springboottimetable.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

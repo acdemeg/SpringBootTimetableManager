@@ -1,10 +1,12 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.repositories.OrderRepository;
+import com.vkrylov.springboottimetable.configs.AuthComponent;
 import com.vkrylov.springboottimetable.entities.Order;
 import com.vkrylov.springboottimetable.exceptions.AppException;
-import org.springframework.dao.DataAccessException;
+import com.vkrylov.springboottimetable.repositories.OrderRepository;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,25 +35,19 @@ public class OrderRestController {
     }
 
     @DeleteMapping("/orders/{id}")
-    @PreAuthorize("hasAuthority('order:delete')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteOrder(@PathVariable int id){
         orderRepository.deleteById(id);
     }
 
     @PostMapping("/orders")
-    @PreAuthorize("hasAuthority('order:post')")
+    @PreAuthorize("hasAuthority('order:post') and @authComponent.hasPermission(authentication, #order.getAuthorId())")
     public Order addNewOrder(@RequestBody Order order){
-        Order saveOrder;
-        try {
-            saveOrder = orderRepository.save(order);
-        }catch (DataAccessException ex){
-            throw new AppException(ex.getMessage());
-        }
-        return saveOrder;
+        return orderRepository.save(order);
     }
 
     @PostMapping("/orders/{id}")
-    @PreAuthorize("hasAuthority('order:post')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Transactional
     public Order updateOrder(@PathVariable int id, @RequestBody Order order) {
         Optional<Order> obj = orderRepository.findById(id);

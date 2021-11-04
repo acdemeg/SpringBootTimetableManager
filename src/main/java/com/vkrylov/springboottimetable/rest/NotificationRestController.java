@@ -1,8 +1,8 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.repositories.NotificationRepository;
 import com.vkrylov.springboottimetable.entities.Notification;
 import com.vkrylov.springboottimetable.exceptions.AppException;
+import com.vkrylov.springboottimetable.repositories.NotificationRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +21,14 @@ public class NotificationRestController {
     }
 
     @GetMapping("/users/{id}/notifications")
+    @PreAuthorize("hasAuthority('ADMIN') or @authComponent.hasPermission(authentication, #id)")
     public List<Notification> getNotificationsByUserId(@PathVariable int id){
         return notificationRepository.findAllByUserId(id);
     }
 
     @PostMapping("/notifications/{id}")
     @Transactional
-    @PreAuthorize("hasAuthority('notification:post')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Notification updateNotification(@PathVariable int id, @RequestBody Notification notification) {
         Optional<Notification> obj = notificationRepository.findById(id);
         Notification updatedNotification = obj.orElseThrow(

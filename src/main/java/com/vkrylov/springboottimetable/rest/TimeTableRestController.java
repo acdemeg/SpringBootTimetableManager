@@ -1,8 +1,8 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.repositories.TimeTableRepository;
 import com.vkrylov.springboottimetable.entities.TimeTable;
 import com.vkrylov.springboottimetable.exceptions.AppException;
+import com.vkrylov.springboottimetable.repositories.TimeTableRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

@@ -1,22 +1,21 @@
 package com.vkrylov.springboottimetable.services;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 import com.vkrylov.springboottimetable.entities.User;
 import com.vkrylov.springboottimetable.entities.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
+
 public class SecurityUser implements UserDetails{
 	
 	private final int id;
 	private final String username;
 	private final String password;
-	private final List<SimpleGrantedAuthority> authorities;
+	private final Set<SimpleGrantedAuthority> authorities;
 	private final boolean isActive;
 
 	public static UserDetails getFromUser(User user){
@@ -24,14 +23,17 @@ public class SecurityUser implements UserDetails{
 		Set<SimpleGrantedAuthority> userAuthorities = (user.getRole().equals(UserRole.USER.name()))
 				? UserRole.USER.getAuthorities() : UserRole.ADMIN.getAuthorities();
 
-		return new org.springframework.security.core.userdetails.User(
+		return new SecurityUser(
+				user.getId(),
 				user.getEmail(),
 				user.getPassword(),
-				userAuthorities
+				userAuthorities,
+				true
 		);
+
 	}
 
-	public SecurityUser(int id, String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
+	public SecurityUser(int id, String username, String password, Set<SimpleGrantedAuthority> authorities, boolean isActive) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
