@@ -10,7 +10,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -26,13 +26,8 @@ public class UserRestControllerTest {
 
     @Test
     public void getAllUsersTest() {
-
-        @SuppressWarnings("unchecked")
-        ResponseEntity<List<User>> res = this.restTemplate
-                .getForEntity(url + port + "/api/users/",
-                        (Class<List<User>>)(Object)List.class);
-
-        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, res.getStatusCode().series());
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/users/"));
     }
 
     @Test
@@ -40,18 +35,14 @@ public class UserRestControllerTest {
         /*
          * test valid query
          */
-        ResponseEntity<User> res = this.restTemplate
-                .getForEntity(url + port + "/api/users/1", User.class);
-
-        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, res.getStatusCode().series());
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/users/1"));
 
         /*
          * test bad query
          */
-        ResponseEntity<User> resErr = this.restTemplate
-                .getForEntity(url + port + "/api/users/-1", User.class);
-
-        Assertions.assertEquals(HttpStatus.Series.CLIENT_ERROR, resErr.getStatusCode().series());
+        Assertions.assertEquals(HttpStatus.Series.CLIENT_ERROR,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/users/-1"));
     }
 
     @Test
@@ -62,16 +53,23 @@ public class UserRestControllerTest {
         User user = new User("TestSpringUser", "ptr@gmail.com", "hardPass",
                 null, null, null, null);
 
-        ResponseEntity<User> res = this.restTemplate
-                .postForEntity(url + port + "/api/users/register", user, User.class);
+
+        ResponseEntity<?> res = TestUtilities.makeTestPOST(
+                "", user, this.restTemplate, url + port + "/api/users/register");
+        @SuppressWarnings("rawtypes")
+        String email = (String) ((LinkedHashMap) Objects.requireNonNull(res.getBody())).get("email");
+        @SuppressWarnings("rawtypes")
+        Integer id = (Integer) ((LinkedHashMap) Objects.requireNonNull(res.getBody())).get("id");
 
         Assertions.assertEquals(res.getStatusCode().series(), HttpStatus.Series.SUCCESSFUL);
-        Assertions.assertEquals(user.getEmail(), Objects.requireNonNull(res.getBody()).getEmail());
+        Assertions.assertEquals(user.getEmail(), email);
 
         /*
          * remove user
          */
-         this.restTemplate.delete(url + port + "/api/users/" + res.getBody().getId());
+         TestUtilities.setAuthorizationHeader(
+                 this.restTemplate, "Basic YWRtaW5AZ29vZ2xlLmNvbTphZG1pbl9wYXNzdw==");
+         this.restTemplate.delete(url + port + "/api/users/" + id.toString());
     }
 
     @Test
@@ -81,16 +79,18 @@ public class UserRestControllerTest {
         /*
          * test valid query
          */
-        ResponseEntity<User> res = this.restTemplate
-                .postForEntity(url + port + "/api/users/3", user, User.class);
+        ResponseEntity<?> res = TestUtilities.makeTestPOST("Basic TWljbGVAbWFpbC5ydTpNaWNsZV9wYXNzdw==",
+                user, this.restTemplate, url + port + "/api/users/9");
+        @SuppressWarnings("rawtypes")
+        String name = (String) ((LinkedHashMap) Objects.requireNonNull(res.getBody())).get("name");
 
         Assertions.assertEquals(res.getStatusCode().series(), HttpStatus.Series.SUCCESSFUL);
-        Assertions.assertEquals(user.getName(), Objects.requireNonNull(res.getBody()).getName());
+        Assertions.assertEquals(user.getName(), name);
         /*
          * test bad query
          */
-        ResponseEntity<User> resError = this.restTemplate
-                .postForEntity(url + port + "/api/users/-1", user, User.class);
+        ResponseEntity<?> resError = TestUtilities.makeTestPOST("Basic TWljbGVAbWFpbC5ydTpNaWNsZV9wYXNzdw==",
+                user, this.restTemplate, url + port + "/api/users/11");
         Assertions.assertEquals(resError.getStatusCode().series(), HttpStatus.Series.CLIENT_ERROR);
 
     }

@@ -4,6 +4,7 @@ import com.vkrylov.springboottimetable.entities.User;
 import com.vkrylov.springboottimetable.exceptions.AppException;
 import com.vkrylov.springboottimetable.repositories.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,8 @@ public class UserRestController {
 
     @PostMapping("/users/register")
     public User regUser(@RequestBody User user){
+        String password = (user.getPassword() == null) ? "HardPassword" : user.getPassword();
+        user.setPassword(new BCryptPasswordEncoder(12).encode(password));
         return userRepository.save(user);
     }
 
