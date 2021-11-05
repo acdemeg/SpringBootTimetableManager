@@ -10,7 +10,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -28,12 +27,31 @@ public class NotificationRestControllerTest {
     @Test
     public void getNotificationsByUserIdTest() {
 
-        @SuppressWarnings("unchecked")
-        ResponseEntity<List<Notification>> res = this.restTemplate
-                .getForEntity(url + port + "/api/users/2/notifications",
-                (Class<List<Notification>>)(Object)List.class);
+        HttpStatus.Series series;
 
-        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, res.getStatusCode().series());
+        /*
+         * Anonymous authorization
+         */
+        series = makeTest("", HttpStatus.Series.CLIENT_ERROR);
+        Assertions.assertEquals(HttpStatus.Series.CLIENT_ERROR, series);
+
+        /*
+         * User(Not Owner) credentials
+         */
+        series = makeTest("Basic TWljbGVAbWFpbC5ydTpNaWNsZV9wYXNzdw==", HttpStatus.Series.CLIENT_ERROR);
+        Assertions.assertEquals(HttpStatus.Series.CLIENT_ERROR, series);
+
+        /*
+         * Admin credentials
+         */
+        series = makeTest("Basic YWRtaW5AZ29vZ2xlLmNvbTphZG1pbl9wYXNzdw==", HttpStatus.Series.SUCCESSFUL);
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, series);
+
+        /*
+         * User(Owner) credentials
+         */
+        series = makeTest("Basic am9vQGdvb2dsZS5jb206am9vX3Bhc3N3", HttpStatus.Series.SUCCESSFUL);
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, series);
     }
 
     @Test
@@ -41,11 +59,29 @@ public class NotificationRestControllerTest {
         Notification notification = new Notification();
         notification.setType(NotificationType.ORDER_CREATED);
 
+        TestUtilities.setAuthorizationHeader(
+                this.restTemplate, "Basic YWRtaW5AZ29vZ2xlLmNvbTphZG1pbl9wYXNzdw==");
+
         ResponseEntity<Notification> res = this.restTemplate
                 .postForEntity(url + port + "/api/notifications/1", notification,
                         Notification.class);
 
         Assertions.assertEquals(notification.getType(), Objects.requireNonNull(res.getBody()).getType());
+    }
+
+    @SuppressWarnings("unchecked")
+    private HttpStatus.Series makeTest(String BasicAuth, HttpStatus.Series series){
+
+        TestUtilities.setAuthorizationHeader(this.restTemplate, BasicAuth);
+        String api = url + port + "/api/users/2/notifications";
+
+        if(series.equals(HttpStatus.Series.CLIENT_ERROR)){
+            return this.restTemplate.getForEntity(api, String.class).getStatusCode().series();
+        }
+        else {
+            return this.restTemplate.getForEntity(api,
+                    (Class<List<Notification>>)(Object)List.class).getStatusCode().series();
+        }
     }
 
 }
