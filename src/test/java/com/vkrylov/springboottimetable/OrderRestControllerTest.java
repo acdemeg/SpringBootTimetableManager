@@ -13,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderRestControllerTest {
@@ -31,13 +28,8 @@ class OrderRestControllerTest {
 
     @Test
     public void getAllOrdersTest() {
-
-        @SuppressWarnings("unchecked")
-        ResponseEntity<List<Order>> res = this.restTemplate
-                .getForEntity(url + port + "/api/orders/",
-                        (Class<List<Order>>)(Object)List.class);
-
-        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, res.getStatusCode().series());
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/orders/"));
     }
 
     @Test
@@ -45,28 +37,19 @@ class OrderRestControllerTest {
         /*
          * test valid query
          */
-        ResponseEntity<Order> res = this.restTemplate
-                .getForEntity(url + port + "/api/orders/1", Order.class);
-
-        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, res.getStatusCode().series());
-
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/orders/1"));
         /*
          * test bad query
          */
-        ResponseEntity<Order> resErr = this.restTemplate
-                .getForEntity(url + port + "/api/orders/-1", Order.class);
-
-        Assertions.assertEquals(HttpStatus.Series.CLIENT_ERROR, resErr.getStatusCode().series());
+        Assertions.assertEquals(HttpStatus.Series.CLIENT_ERROR,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/orders/-1"));
     }
 
     @Test
     public void getOrdersByUserIdTest() {
-
-        @SuppressWarnings("unchecked")
-        ResponseEntity<List<Order>> res = this.restTemplate
-                .getForEntity(url + port + "/api/users/1/orders", (Class<List<Order>>)(Object)List.class);
-
-        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL, res.getStatusCode().series());
+        Assertions.assertEquals(HttpStatus.Series.SUCCESSFUL,
+                TestUtilities.makeTestGET("", this.restTemplate, url + port + "/api/users/1/orders"));
     }
 
     @Test
@@ -74,24 +57,33 @@ class OrderRestControllerTest {
         /*
          *  create order
          */
-
         AttributeValue attr = new AttributeValue(1, 0, 1, "JS Challenge");
         AttributeValue attr_2 = new AttributeValue(2, 0, 1, "20");
         List<AttributeValue> list = new ArrayList<>(Arrays.asList(attr, attr_2));
 
         Order order = new Order(1, "Admin", ZonedDateTime.parse("2020-04-11T16:00:00.000Z"),
                 ZonedDateTime.parse("2020-04-11T17:00:00.000Z"), null, 1, list, null);
-
-        ResponseEntity<Order> res = this.restTemplate
-                .postForEntity(url + port + "/api/orders", order, Order.class);
-
+        /*
+         * test valid query
+         */
+        ResponseEntity<?> res = TestUtilities.makeTestPOST("Basic YWRtaW5AZ29vZ2xlLmNvbTphZG1pbl9wYXNzdw==",
+                order, this.restTemplate, url + port + "/api/orders");
+        @SuppressWarnings("rawtypes")
+        Integer id = (Integer) ((LinkedHashMap) Objects.requireNonNull(res.getBody())).get("id");
         Assertions.assertEquals(res.getStatusCode().series(), HttpStatus.Series.SUCCESSFUL);
-        Assertions.assertEquals(order.getStatus(), Objects.requireNonNull(res.getBody()).getStatus());
-
         /*
          * remove order
          */
-        this.restTemplate.delete(url + port + "/api/orders/" + res.getBody().getId());
+        this.restTemplate.delete(url + port + "/api/orders/" + id.toString());
+
+        /*
+         * test bad query
+         */
+        order.setAuthorId(3);
+        ResponseEntity<?> resBad = TestUtilities.makeTestPOST("Basic YWRtaW5AZ29vZ2xlLmNvbTphZG1pbl9wYXNzdw==",
+                order, this.restTemplate, url + port + "/api/orders");
+
+        Assertions.assertEquals(resBad.getStatusCode().series(), HttpStatus.Series.CLIENT_ERROR);
     }
 
     @Test
@@ -99,33 +91,25 @@ class OrderRestControllerTest {
         /*
          *  update order
          */
-
         Order order = new Order();
-        order.setStatus(OrderStatus.CANCELED);
-
-        ResponseEntity<Order> res = this.restTemplate
-                .postForEntity(url + port + "/api/orders/2", order, Order.class);
+        order.setStatus(OrderStatus.CREATED);
+        /*
+         * test valid query
+         */
+        ResponseEntity<?> res = TestUtilities.makeTestPOST("Basic YWRtaW5AZ29vZ2xlLmNvbTphZG1pbl9wYXNzdw==",
+                order, this.restTemplate, url + port + "/api/orders/24");
+        @SuppressWarnings("rawtypes")
+        String status = (String) ((LinkedHashMap) Objects.requireNonNull(res.getBody())).get("status");
 
         Assertions.assertEquals(res.getStatusCode().series(), HttpStatus.Series.SUCCESSFUL);
-        Assertions.assertEquals(order.getStatus(), Objects.requireNonNull(res.getBody()).getStatus());
-
-        /*
-         * rollback order
-         */
-        order.setStatus(OrderStatus.CREATED);
-        ResponseEntity<Order> res_2 = this.restTemplate
-                .postForEntity(url + port + "/api/orders/2", order, Order.class);
-
-        Assertions.assertEquals(res_2.getStatusCode().series(), HttpStatus.Series.SUCCESSFUL);
-        Assertions.assertEquals(order.getStatus(), Objects.requireNonNull(res_2.getBody()).getStatus());
-
+        Assertions.assertEquals(order.getStatus().name(), status);
         /*
          * test bad query
          */
-        ResponseEntity<Order> res_3 = this.restTemplate
-                .postForEntity(url + port + "/api/orders/-2", order, Order.class);
+        ResponseEntity<?> resBad = TestUtilities.makeTestPOST("Basic am9vQGdvb2dsZS5jb206am9vX3Bhc3N3",
+                order, this.restTemplate, url + port + "/api/orders/24");
 
-        Assertions.assertEquals(res_3.getStatusCode().series(), HttpStatus.Series.CLIENT_ERROR);
+        Assertions.assertEquals(resBad.getStatusCode().series(), HttpStatus.Series.CLIENT_ERROR);
 
     }
 
