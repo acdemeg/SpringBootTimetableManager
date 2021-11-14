@@ -1,12 +1,9 @@
 package com.vkrylov.springboottimetable.rest;
 
-import com.vkrylov.springboottimetable.configs.AuthComponent;
 import com.vkrylov.springboottimetable.entities.Order;
 import com.vkrylov.springboottimetable.exceptions.AppException;
 import com.vkrylov.springboottimetable.repositories.OrderRepository;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import styles from './TimeTablesInfo.scss';
 import getNavLinkTitle from './NavLinkTitle';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 import ButtonRound from '../../components/buttons/ButtonRound';
 
 const TimeTableInfo = ({ timeTable, removeTimeTable }) => {

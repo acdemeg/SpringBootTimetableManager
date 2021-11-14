@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import InputIcon from './InputIcon';
 
 function InputField({ inputColor, type, name, placeholder, minLength, iconLeft, iconRight }) {

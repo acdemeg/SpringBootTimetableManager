@@ -1,5 +1,5 @@
 import React from 'react';
-import { typeModalEnum } from '../../constants';
+import {typeModalEnum} from '../../constants';
 import './Modal.css';
 
 const InputForm = ({ typeModal, getValueFromInput }) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import TextInput from './inputs/TextInput';
 import SelectInput from './inputs/SelectInput';
-import { getNewIdGenerator } from '../utils';
+import {getNewIdGenerator} from '../utils';
 
 const attributeKeysGen = getNewIdGenerator();
 

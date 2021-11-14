@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { CSSTransition } from 'react-transition-group';
-import { HIDE_ALERT } from '../../store/actions';
+import {connect} from 'react-redux';
+import {CSSTransition} from 'react-transition-group';
+import {HIDE_ALERT} from '../../store/actions';
 import Button from './Button';
 import './Alert.css';
 

@@ -13,7 +13,7 @@ services:
     volumes:
       - ./target:/home/app
     ports:
-      - 8002:8080
+      - "8002:8080"
 
   db:
     image: postgres:11
@@ -25,4 +25,4 @@ services:
       - db-data:/var/lib/postgresql/data
       - ./ops/db-backups:/backup
     ports:
-      - 5442:5432
+      - "5442:5432"

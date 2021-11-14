@@ -1,4 +1,4 @@
-import { orderStatusEnum } from '../constants';
+import {orderStatusEnum} from '../constants';
 
 const searchConflictOrders = orders => {
   const conflictOrders = new Set();

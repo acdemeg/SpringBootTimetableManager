@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './TimeTablesInfo.scss';
-import { orderStatusEnum, scenesEnum } from '../../constants';
+import {orderStatusEnum, scenesEnum} from '../../constants';
 import ButtonRound from '../../components/buttons/ButtonRound';
 
 const CartOrder = ({ order, attributes, removeOrder, orderUpdateStatus }) => {

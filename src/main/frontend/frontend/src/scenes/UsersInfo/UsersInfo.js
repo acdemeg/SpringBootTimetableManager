@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import header from '../TimeTables/TimeTables.scss';
 import WithData from '../../components/hoc-helpers/WithData';
-import { fetchFullInfo } from '../../store/actions';
+import {fetchFullInfo} from '../../store/actions';
 import style from './UsersInfo.scss';
 import UserProfile from './UserProfile';
 import UserOrders from './UserOrders';
 import SearchBar from './SearchBar';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 import Notification from '../../components/Notification';
 
 const UsersInfo = ({ users, timeTables, removeOrder, notifications, removeUser }) => {

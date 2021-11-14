@@ -1,5 +1,5 @@
 import React from 'react';
-import { attributeTypeEnum, timeTableTypeEnum } from '../../constants';
+import {attributeTypeEnum, timeTableTypeEnum} from '../../constants';
 
 const SelectInput = ({ type, labelName, labelId, nameForm }) => {
   const attributeTypes = (

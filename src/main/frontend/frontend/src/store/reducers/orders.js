@@ -1,4 +1,4 @@
-import { actionsEnum, typeModalEnum } from '../../constants';
+import {actionsEnum, typeModalEnum} from '../../constants';
 
 const updateOrders = (state, action) => {
   if (state === undefined) {

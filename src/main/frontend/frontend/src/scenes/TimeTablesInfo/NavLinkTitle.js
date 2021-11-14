@@ -1,5 +1,5 @@
 import React from 'react';
-import { orderStatusEnum } from '../../constants';
+import {orderStatusEnum} from '../../constants';
 import styles from './TimeTablesInfo.scss';
 
 const getNavLinkTitle = (countConflictOrders, orders) => {

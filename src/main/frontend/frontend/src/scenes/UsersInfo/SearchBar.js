@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import style from './UsersInfo.scss';
 import SearchInput from '../../components/inputs/SearchInput';
-import { getNewIdGenerator } from '../../utils';
+import {getNewIdGenerator} from '../../utils';
 
 const keysGen = getNewIdGenerator();
 

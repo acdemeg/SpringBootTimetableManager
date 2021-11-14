@@ -1,13 +1,6 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
+import {library} from '@fortawesome/fontawesome-svg-core';
 
-import {
-  faEnvelope,
-  faCheck,
-  faLock,
-  faExclamation,
-  faUser,
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faEnvelope, faExclamation, faLock, faSearch, faUser,} from '@fortawesome/free-solid-svg-icons';
 
 const compose = (...func) => comp => func.reduceRight((wrapped, f) => f(wrapped), comp);
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { typeModalEnum } from '../../constants';
+import {typeModalEnum} from '../../constants';
 import style from './TimeTable.scss';
-import { getNewIdGenerator } from '../../utils';
+import {getNewIdGenerator} from '../../utils';
 
 const attributeKeysGen = getNewIdGenerator();
 

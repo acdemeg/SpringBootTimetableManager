@@ -1,4 +1,4 @@
-import { timeTableTypeEnum } from '../../constants';
+import {timeTableTypeEnum} from '../../constants';
 
 const millisecInHour = 3600000;
 const millisecInDay = 86400000;
@@ -14,19 +14,17 @@ class DateUtils {
   getOrdersForColumn(orders) {
     if (this.slotSize === timeTableTypeEnum.HOUR) {
       const endDay = this.time.getTime() + millisecInDay;
-      const ordersColumn = orders.filter(
-        order =>
-          Date.parse(order.endDate) <= endDay && Date.parse(order.startDate) >= this.time.getTime(),
+      return orders.filter(
+          order =>
+              Date.parse(order.endDate) <= endDay && Date.parse(order.startDate) >= this.time.getTime(),
       );
-      return ordersColumn;
     }
 
     const endWeek = this.time.getTime() + millisecInWeek;
-    const ordersColumn = orders.filter(
-      order =>
-        Date.parse(order.endDate) <= endWeek && Date.parse(order.startDate) >= this.time.getTime(),
+    return orders.filter(
+        order =>
+            Date.parse(order.endDate) <= endWeek && Date.parse(order.startDate) >= this.time.getTime(),
     );
-    return ordersColumn;
   }
 
   getOrderForCell(orders, numberCell, userId) {

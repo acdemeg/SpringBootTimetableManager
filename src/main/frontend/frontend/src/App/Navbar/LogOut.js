@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { LOG_OUT } from '../../store/actions';
+import {connect} from 'react-redux';
+import {LOG_OUT} from '../../store/actions';
 
 function LogOut({ logOut }) {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './TimeTable.scss';
-import { typeModalEnum, usersRoleEnum, orderStatusEnum } from '../../constants';
+import {orderStatusEnum, typeModalEnum, usersRoleEnum} from '../../constants';
 
 const Cell = ({ styleCell, openModal, typeModal, date, attributeValues, order }) => {
   const getAttributeValue = numAttr => {

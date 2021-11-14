@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import styles from './SignIn.scss';
 import register from '../TimeTables/TimeTables.scss';
-import { LOGIN } from '../../store/actions';
-import { scenesEnum } from '../../constants';
+import {LOGIN} from '../../store/actions';
+import {scenesEnum} from '../../constants';
 import Notification from '../../components/Notification';
 import PassAndEmailInputs from '../../components/inputs/PassAndEmailInputs';
 import ButtonConfirm from '../../components/buttons/ButtonConfirm';

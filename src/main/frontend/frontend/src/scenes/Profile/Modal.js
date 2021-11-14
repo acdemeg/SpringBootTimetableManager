@@ -1,5 +1,5 @@
 import React from 'react';
-import { typeModalEnum, messages } from '../../constants';
+import {messages, typeModalEnum} from '../../constants';
 import InputForm from './InputForm';
 import ButtonModal from '../../components/buttons/ButtonModal';
 import './Modal.css';

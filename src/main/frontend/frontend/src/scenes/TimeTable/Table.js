@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './TimeTable.scss';
 import TimeTableColumn from './TimeTableColumn';
-import { timeTableTypeEnum } from '../../constants';
-import { TimeCell } from './TimeTableCell';
+import {timeTableTypeEnum} from '../../constants';
+import {TimeCell} from './TimeTableCell';
 import DateUtils from './date_utils';
 
 const Table = ({ slotSize, countColumns, startDate, openModal, orders, profile }) => {

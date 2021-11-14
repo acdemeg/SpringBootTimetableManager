@@ -2,12 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import timeTableHeader from '../TimeTables/TimeTables.scss';
 import WithData from '../../components/hoc-helpers/WithData';
-import { fetchTimeTables } from '../../store/actions';
+import {fetchTimeTables} from '../../store/actions';
 import style from './Timeline.scss';
 import Order from './Order';
 import Notification from '../../components/Notification';
 import searchOrdersOfUser from '../../utils/SearchOrdersOfUser';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 
 const Container = styled.div`
   display: flex;

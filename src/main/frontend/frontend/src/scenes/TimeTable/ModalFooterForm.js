@@ -1,5 +1,5 @@
 import React from 'react';
-import { typeModalEnum, scenesEnum, orderStatusEnum } from '../../constants';
+import {orderStatusEnum, scenesEnum, typeModalEnum} from '../../constants';
 import Button from '../../components/buttons/Button';
 
 const ModalFooterForm = ({ typeModal, onCancel, orderUpdateStatus, timeTableId, orderId }) => {

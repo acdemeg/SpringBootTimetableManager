@@ -1,7 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import styles from './Timeline.scss';
-import { timeTableTypeEnum, orderStatusEnum } from '../../constants';
+import {orderStatusEnum, timeTableTypeEnum} from '../../constants';
 import ButtonRound from '../../components/buttons/ButtonRound';
 
 const Order = ({ event, removeOrder, scene }) => {

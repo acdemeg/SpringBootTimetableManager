@@ -3,7 +3,7 @@ import styles from './Navbar.scss';
 import NavLinkComponent from './NavLinkComponent';
 import LogOut from './LogOut';
 import MiniAvatar from './MiniAvatar';
-import { usersRoleEnum } from '../../constants';
+import {usersRoleEnum} from '../../constants';
 
 function NavigationForLogInUsers({ profile }) {
   const { name = 'username', role, imagePath } = profile;

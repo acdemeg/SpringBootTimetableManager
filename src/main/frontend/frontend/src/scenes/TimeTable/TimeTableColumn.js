@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimeTableCell, TimeCell } from './TimeTableCell';
+import {TimeCell, TimeTableCell} from './TimeTableCell';
 import DateUtils from './date_utils';
 
 const TimeTableColumn = ({ orders, period, countCell, openModal, slotSize, profile }) => {

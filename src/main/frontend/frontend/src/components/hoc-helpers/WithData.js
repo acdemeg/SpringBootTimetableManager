@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import Spinner from '../Spinner';
 import ErrorIndicator from '../Error-boundry/Error-indicator';
 import {
-  OPEN_MODAL_ORDER,
-  CANCEL_MODAL_ORDER,
-  CREATE_ORDER,
-  ORDER_UPDATE_STATUS,
-  ORDER_REMOVE,
-  USER_REMOVE,
-  TIME_TABLE_REMOVE,
+    CANCEL_MODAL_ORDER,
+    CREATE_ORDER,
+    OPEN_MODAL_ORDER,
+    ORDER_REMOVE,
+    ORDER_UPDATE_STATUS,
+    TIME_TABLE_REMOVE,
+    USER_REMOVE,
 } from '../../store/actions';
 
 const Wrapped = (View, fetchAction) => {

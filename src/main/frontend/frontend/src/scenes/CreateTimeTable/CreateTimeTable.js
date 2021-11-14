@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import styles from './CreateTimeTable.scss';
 import creatTimeTableHeader from '../TimeTables/TimeTables.scss';
 import TextInput from '../../components/inputs/TextInput';
@@ -7,10 +7,10 @@ import SelectInput from '../../components/inputs/SelectInput';
 import DateInput from '../../components/inputs/DateInput';
 import Attribute from '../../components/Attribute';
 import Button from '../../components/buttons/Button';
-import { getNewIdGenerator } from '../../utils';
-import { CREATE_TIME_TABLE } from '../../store/actions';
+import {getNewIdGenerator} from '../../utils';
+import {CREATE_TIME_TABLE} from '../../store/actions';
 import Notification from '../../components/Notification';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 
 const attributeKeysGen = getNewIdGenerator();
 const attributeNumberGen = getNewIdGenerator();

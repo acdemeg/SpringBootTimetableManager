@@ -1,5 +1,5 @@
 import React from 'react';
-import { typeModalEnum, messages } from '../../constants';
+import {messages, typeModalEnum} from '../../constants';
 import ModalBodyForm from './ModalBodyForm';
 import ModalFooterForm from './ModalFooterForm';
 import style from './TimeTable.scss';

@@ -1,11 +1,11 @@
 import {
-  timeTableTypeEnum,
-  orderStatusEnum,
-  actionsEnum,
-  scenesEnum,
-  typeAlertEnum,
-  messages,
-  typeModalEnum,
+    actionsEnum,
+    messages,
+    orderStatusEnum,
+    scenesEnum,
+    timeTableTypeEnum,
+    typeAlertEnum,
+    typeModalEnum,
 } from '../constants';
 import appServiceData from '../App/appServiceData';
 

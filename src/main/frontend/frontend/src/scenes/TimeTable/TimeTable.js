@@ -1,8 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchTimeTables } from '../../store/actions';
+import {useParams} from 'react-router-dom';
+import {fetchTimeTables} from '../../store/actions';
 import Table from './Table';
-import { timeTableTypeEnum, scenesEnum } from '../../constants';
+import {scenesEnum, timeTableTypeEnum} from '../../constants';
 import styles from './TimeTable.scss';
 import timeTableHeader from '../TimeTables/TimeTables.scss';
 import WithData from '../../components/hoc-helpers/WithData';

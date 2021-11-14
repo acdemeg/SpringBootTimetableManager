@@ -1,6 +1,6 @@
 import style from './TimeTablesInfo.scss';
 import Container from '../TimeTables/ContainerStyle';
-import { timeTableTypeEnum } from '../../constants';
+import {timeTableTypeEnum} from '../../constants';
 import CartOrder from './CardOrder';
 
 const SlotInfo = ({ orders, slotSize, attributes, orderUpdateStatus, removeOrder }) => {

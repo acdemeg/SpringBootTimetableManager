@@ -1,4 +1,4 @@
-import { actionsEnum } from '../../constants';
+import {actionsEnum} from '../../constants';
 import searchConflictOrders from '../../utils/SearchConflictOrders';
 
 const updateTimeTables = (state, action) => {
@@ -20,8 +20,7 @@ const updateTimeTables = (state, action) => {
       });
     }
     const timeTable = payload;
-    const conflictsOrders = searchConflictOrders(payload.orders);
-    timeTable.conflictsOrders = conflictsOrders;
+    timeTable.conflictsOrders = searchConflictOrders(payload.orders);
     return timeTable;
   };
 

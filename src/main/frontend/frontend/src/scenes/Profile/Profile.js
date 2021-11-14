@@ -1,11 +1,11 @@
 import React from 'react';
 import './Profile.css';
-import { connect } from 'react-redux';
-import { OPEN_MODAL_PROFILE, CANCEL_MODAL_PROFILE, UPDATE_PROFILE } from '../../store/actions';
+import {connect} from 'react-redux';
+import {CANCEL_MODAL_PROFILE, OPEN_MODAL_PROFILE, UPDATE_PROFILE} from '../../store/actions';
 import Modal from './Modal';
 import ProfileField from './ProfileField';
 import RedactFields from './RedactField';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 import Notification from '../../components/Notification';
 
 function Profile({

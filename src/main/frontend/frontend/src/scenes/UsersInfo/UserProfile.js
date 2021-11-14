@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './UsersInfo.scss';
 import header from '../TimeTables/TimeTables.scss';
-import { orderStatusEnum, scenesEnum } from '../../constants';
+import {orderStatusEnum, scenesEnum} from '../../constants';
 import ButtonRound from '../../components/buttons/ButtonRound';
 
 const UserProfile = ({ user, timeTables, removeUser }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchTimeTables } from '../../store/actions';
-import { scenesEnum } from '../../constants';
+import {useParams} from 'react-router-dom';
+import {fetchTimeTables} from '../../store/actions';
+import {scenesEnum} from '../../constants';
 import timeTableHeader from '../TimeTables/TimeTables.scss';
 import WithData from '../../components/hoc-helpers/WithData';
 import Notification from '../../components/Notification';
@@ -25,10 +25,8 @@ const AdminPanelTable = ({
 
   const { title, conflictsOrders, slotSize, orders, attributes } = timeTable;
   const noConflictOrders = orders.filter(order => {
-    if (conflictsOrders.find(confOrder => confOrder.id === order.id)) {
-      return false;
-    }
-    return true;
+    return !conflictsOrders.find(confOrder => confOrder.id === order.id);
+
   });
   const conflictSlots = Array.from(new Set(conflictsOrders.map(v => v.startDate)));
 

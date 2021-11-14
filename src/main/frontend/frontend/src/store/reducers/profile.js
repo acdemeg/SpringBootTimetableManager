@@ -1,4 +1,4 @@
-import { actionsEnum, usersRoleEnum, typeModalEnum } from '../../constants';
+import {actionsEnum, typeModalEnum, usersRoleEnum} from '../../constants';
 
 const updateProfile = (state, action) => {
   if (state === undefined) {

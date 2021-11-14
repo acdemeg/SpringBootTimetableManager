@@ -3,7 +3,7 @@ import style from './UsersInfo.scss';
 import Order from '../Timeline/Order';
 import header from '../TimeTables/TimeTables.scss';
 import searchOrdersOfUser from '../../utils/SearchOrdersOfUser';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 
 const UserOrders = ({ user, timeTables, removeOrder }) => {
   if (!user) return null;

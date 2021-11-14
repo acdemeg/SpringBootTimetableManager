@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from '../TimeTables/TimeTables.scss';
-import { fetchTimeTables } from '../../store/actions';
+import {fetchTimeTables} from '../../store/actions';
 import WithData from '../../components/hoc-helpers/WithData';
 import TimeTableInfo from './TimeTableInfo';
 import Container from '../TimeTables/ContainerStyle';
-import { scenesEnum } from '../../constants';
+import {scenesEnum} from '../../constants';
 import Notification from '../../components/Notification';
 
 const TimeTablesInfo = ({ timeTables, removeTimeTable, notifications }) => {

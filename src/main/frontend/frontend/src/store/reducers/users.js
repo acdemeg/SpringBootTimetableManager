@@ -1,4 +1,4 @@
-import { actionsEnum } from '../../constants';
+import {actionsEnum} from '../../constants';
 
 const getAllUsers = (state, action) => {
   if (state === undefined) {

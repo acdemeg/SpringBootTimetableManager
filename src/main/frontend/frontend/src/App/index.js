@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
 import TimeTables from '../scenes/TimeTables';
 import TimeTable from '../scenes/TimeTable';
 import AdminPanelTable from '../scenes/TimeTablesInfo/AdminPanelTable';
@@ -12,7 +12,7 @@ import SignIn from '../scenes/SignIn';
 import TimeTablesInfo from '../scenes/TimeTablesInfo';
 import UsersInfo from '../scenes/UsersInfo';
 import Navigation from './Navbar';
-import { usersRoleEnum } from '../constants';
+import {usersRoleEnum} from '../constants';
 import './styles.css';
 
 const App = ({ isLoggedIn, role, profile }) => {
