@@ -60,9 +60,9 @@ public class TimeTableRestControllerTest {
         /*
          *  create timeTable
          */
-        Attribute attribute = new Attribute("Name Event", "STRING", true, 0);
-        TimeTable timeTable = new TimeTable("Meeting", "2020-04-09T18:00:00.000Z",
-                "2020-04-09T18:00:00.000Z", "HOUR");
+        Attribute attribute = new Attribute(0, "Name Event", "STRING", true, 0);
+        TimeTable timeTable = new TimeTable(0, "Meeting", "2020-04-09T18:00:00.000Z",
+                "2020-04-09T18:00:00.000Z", "HOUR", null, null);
         timeTable.setAttributes(new ArrayList<>(Collections.singletonList(attribute)));
 
         String apiURL = url + port + "/api/timetables/";

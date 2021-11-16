@@ -1,10 +1,16 @@
 package com.vkrylov.springboottimetable.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name= "attributes",  schema = "public")
 public class Attribute {
@@ -27,55 +33,6 @@ public class Attribute {
     @Column(name="time_table_id", insertable = false, updatable = false)
     private int timeTableId;
 
-    public Attribute() {}
-
-    public Attribute(String title, String typeAttr, boolean isRequired, int timeTableId) {
-        this.title = title;
-        this.typeAttr = typeAttr;
-        this.isRequired = isRequired;
-        this.timeTableId = timeTableId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTypeAttr() {
-        return typeAttr;
-    }
-
-    public void setTypeAttr(String typeAttr) {
-        this.typeAttr = typeAttr;
-    }
-
-    public boolean getIsRequired() {
-        return isRequired;
-    }
-
-    public void setIsRequired(boolean isRequired) {
-        this.isRequired = isRequired;
-    }
-
-    public int getTimeTableId() {
-        return timeTableId;
-    }
-
-    public void setTimeTableId(int timeTableId) {
-        this.timeTableId = timeTableId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,5 +45,4 @@ public class Attribute {
     public int hashCode() {
         return Objects.hash(id, title, typeAttr, isRequired, timeTableId);
     }
-
 }

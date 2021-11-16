@@ -57,11 +57,11 @@ class OrderRestControllerTest {
         /*
          *  create order
          */
-        AttributeValue attr = new AttributeValue(1, 0, 1, "JS Challenge");
-        AttributeValue attr_2 = new AttributeValue(2, 0, 1, "20");
+        AttributeValue attr = new AttributeValue(0, 1, 0, 1, "JS Challenge");
+        AttributeValue attr_2 = new AttributeValue(0, 2, 0, 1, "20");
         List<AttributeValue> list = new ArrayList<>(Arrays.asList(attr, attr_2));
 
-        Order order = new Order(1, "Admin", ZonedDateTime.parse("2020-04-11T16:00:00.000Z"),
+        Order order = new Order(0, 1, "Admin", ZonedDateTime.parse("2020-04-11T16:00:00.000Z"),
                 ZonedDateTime.parse("2020-04-11T17:00:00.000Z"), null, 1, list, null);
         /*
          * test valid query

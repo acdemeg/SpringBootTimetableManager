@@ -1,8 +1,15 @@
 package com.vkrylov.springboottimetable.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name= "notifications",  schema = "public")
 public class Notification {
@@ -24,55 +31,6 @@ public class Notification {
 
     @Column(name="is_read")
     private boolean isRead;
-
-    public Notification(){}
-
-    public Notification(int orderId, int userId, NotificationType type, boolean isRead) {
-        this.orderId = orderId;
-        this.userId = userId;
-        this.type = type;
-        this.isRead = isRead;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public NotificationType getType() {
-        return type;
-    }
-
-    public void setType(NotificationType type) {
-        this.type = type;
-    }
-
-    public boolean isRead() {
-        return isRead;
-    }
-
-    public void setRead(boolean read) {
-        isRead = read;
-    }
 
     @Override
     public boolean equals(Object o) {

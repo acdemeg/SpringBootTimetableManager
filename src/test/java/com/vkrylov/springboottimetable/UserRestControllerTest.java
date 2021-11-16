@@ -50,7 +50,7 @@ public class UserRestControllerTest {
         /*
          *  registration
          */
-        User user = new User("TestSpringUser", "ptr@gmail.com", "hardPass",
+        User user = new User(0, "TestSpringUser", "ptr@gmail.com", "hardPass",
                 null, null, null, null);
 
 
