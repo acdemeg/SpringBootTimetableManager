@@ -33,7 +33,7 @@ public class UserRestController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     @PreAuthorize("hasAuthority('USER')")
     public Optional<User> getLoginUser(Authentication auth){
         SecurityUser securityUser = (SecurityUser)auth.getPrincipal();

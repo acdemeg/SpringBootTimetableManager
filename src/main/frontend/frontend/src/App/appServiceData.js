@@ -67,7 +67,13 @@ const appServiceData = {
   },
 
   async logInUser(user) {
-    const res = await axios.post(`/api/users/login`, user).catch(err => {
+    const authStr = btoa(`${user.email}:${user.password}`);
+    const config = {
+      headers: {
+        Authorization: authStr,
+      }
+    }
+    const res = await axios.post(`/api/users/login`, null, config).catch(err => {
       return `${err}`;
     });
     return res.data === 'wrong email or password' ? false : res.data;
