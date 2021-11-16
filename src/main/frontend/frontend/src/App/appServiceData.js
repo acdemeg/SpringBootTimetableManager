@@ -19,7 +19,7 @@ const appServiceData = {
 
   async createTimeTable(timeTable) {
     const res = await axios.post(`/api/timetables`, timeTable);
-    return res.data === 'success';
+    return res.status === 200;
   },
 
   async getOrdersOfUser(id) {
@@ -41,29 +41,29 @@ const appServiceData = {
 
   async createOrder(order) {
     const res = await axios.post(`/api/orders`, order);
-    return res.data === 'success';
+    return res.status === 200;
   },
 
   async updateOrder(id, newStatus) {
     const res = await axios.post(`/api/orders/${id}`, { status: newStatus });
-    return res.data === 'success';
+    return res.status === 200;
   },
   async removeOrder(id) {
     const res = await axios.delete(`/api/orders/${id}`);
-    return res.data === 'success';
+    return res.status === 200;
   },
   async removeUser(id) {
     const res = await axios.delete(`/api/users/${id}`);
-    return res.data === 'success';
+    return res.status === 200;
   },
   async removeTimeTable(id) {
     const res = await axios.delete(`/api/timetables/${id}`);
-    return res.data === 'success';
+    return res.status === 200;
   },
 
   async regUser(user) {
     const res = await axios.post(`/api/users/register`, user).catch(err => `${err}`);
-    return res.data === 'succses registration';
+    return res.status === 200;
   },
 
   async logInUser(user) {
@@ -76,7 +76,7 @@ const appServiceData = {
     const res = await axios.post(`/api/users/login`, null, config).catch(err => {
       return `${err}`;
     });
-    return res.data === 'wrong email or password' ? false : res.data;
+    return res.status === 200 ? res.data : false;
   },
 };
 
