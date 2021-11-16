@@ -3,7 +3,9 @@ package com.vkrylov.springboottimetable.rest;
 import com.vkrylov.springboottimetable.entities.User;
 import com.vkrylov.springboottimetable.exceptions.AppException;
 import com.vkrylov.springboottimetable.repositories.UserRepository;
+import com.vkrylov.springboottimetable.services.SecurityUser;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,13 @@ public class UserRestController {
     @GetMapping("/users")
     public List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    @PostMapping("/login")
+    @PreAuthorize("hasAuthority('USER')")
+    public Optional<User> getLoginUser(Authentication auth){
+        SecurityUser securityUser = (SecurityUser)auth.getPrincipal();
+        return userRepository.findById(securityUser.getId());
     }
 
     @DeleteMapping("/users/{id}")
