@@ -16,7 +16,7 @@ public class AuthComponent {
     }
 
     public Integer getIdOfAuthUser(Authentication auth){
-        if(auth instanceof AnonymousAuthenticationToken)
+        if(auth == null || auth instanceof AnonymousAuthenticationToken)
             return null;
         SecurityUser securityUser = (SecurityUser)auth.getPrincipal();
         return securityUser.getId();
