@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class NotificationRestController {
 
-    final NotificationRepository notificationRepository;
+    private final NotificationRepository notificationRepository;
 
     public NotificationRestController(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;

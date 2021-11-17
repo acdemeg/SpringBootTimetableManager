@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class TimeTableRestController {
 
-    final TimeTableRepository timeTableRepository;
+    private final TimeTableRepository timeTableRepository;
 
     public TimeTableRestController(TimeTableRepository timeTableRepository) {
         this.timeTableRepository = timeTableRepository;

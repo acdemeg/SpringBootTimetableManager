@@ -1,5 +1,6 @@
 package com.vkrylov.springboottimetable.rest;
 
+import com.vkrylov.springboottimetable.configs.AuthComponent;
 import com.vkrylov.springboottimetable.entities.User;
 import com.vkrylov.springboottimetable.exceptions.AppException;
 import com.vkrylov.springboottimetable.repositories.UserRepository;
@@ -16,10 +17,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
-    final UserRepository userRepository;
 
-    public UserRestController(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    private final AuthComponent authComponent;
+
+    public UserRestController(UserRepository userRepository, AuthComponent authComponent) {
         this.userRepository = userRepository;
+        this.authComponent = authComponent;
     }
 
     @GetMapping("/users/{id}")
@@ -31,6 +35,12 @@ public class UserRestController {
     @GetMapping("/users")
     public List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/users/loadProfile")
+    public Optional<User> loadProfileAuthUser(Authentication auth){
+        Integer authID = this.authComponent.getIdOfAuthUser(auth);
+        return (authID == null) ? Optional.empty() : userRepository.findById(authID);
     }
 
     @PostMapping("/users/login")

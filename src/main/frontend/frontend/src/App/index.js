@@ -14,8 +14,12 @@ import UsersInfo from '../scenes/UsersInfo';
 import Navigation from './Navbar';
 import {usersRoleEnum} from '../constants';
 import './styles.css';
+import { UPLOAD_PROFILE } from "../store/actions";
 
-const App = ({ isLoggedIn, role, profile }) => {
+const App = ({ loadProfile, isLoggedIn, role, profile }) => {
+
+  loadProfile();
+
   return (
     <>
       <Navigation isLoggedIn={isLoggedIn} profile={profile} />
@@ -54,4 +58,10 @@ const mapStateToProps = ({ authorization: { isLoggedIn }, profile: { role }, pro
   profile,
 });
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => ({
+  loadProfile: () => {
+    UPLOAD_PROFILE(dispatch);
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -7,11 +7,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthComponent {
-    public boolean hasPermission(Authentication auth, int id) {
-        if(auth instanceof AnonymousAuthenticationToken)
-            return false;
 
+    public boolean hasPermission(Authentication auth, int id) {
+        Integer authID = this.getIdOfAuthUser(auth);
+        if(authID == null)
+            return false;
+        return id == authID;
+    }
+
+    public Integer getIdOfAuthUser(Authentication auth){
+        if(auth instanceof AnonymousAuthenticationToken)
+            return null;
         SecurityUser securityUser = (SecurityUser)auth.getPrincipal();
-        return id == securityUser.getId();
+        return securityUser.getId();
     }
 }

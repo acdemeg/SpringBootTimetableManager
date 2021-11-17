@@ -28,10 +28,9 @@ const appServiceData = {
     return res.data;
   },
 
-  async getProfileOfUser(id) {
-    if (!id) return {};
-    const res = await axios.get(`/api/users/${id}`);
-    return res.data;
+  async loadProfileOfUser() {
+    const res = await axios.get(`/api/users/loadProfile`);
+    return (res.status === 200) ? res.data : null;
   },
   async updateProfileById(id, data) {
     if (!id) return {};
@@ -70,7 +69,7 @@ const appServiceData = {
     const authStr = btoa(`${user.email}:${user.password}`);
     const config = {
       headers: {
-        Authorization: authStr,
+        Authorization: `Basic ${authStr}`,
       }
     }
     const res = await axios.post(`/api/users/login`, null, config).catch(err => {

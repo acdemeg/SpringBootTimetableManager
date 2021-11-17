@@ -148,6 +148,15 @@ const LOGIN = (event, dispatch) => {
   });
 };
 
+const UPLOAD_PROFILE = (dispatch) => {
+  appServiceData.loadProfileOfUser().then(user => {
+    if (user) {
+      dispatch(LOG_IN(user.id));
+      dispatch(PROFILE_LOADED(user));
+    }
+  });
+};
+
 const REGISTER = (event, dispatch) => {
   event.preventDefault();
   const formDate = new FormData(document.getElementById('RegForm'));
@@ -386,6 +395,7 @@ export {
   ORDER_REMOVE,
   LOG_IN,
   LOG_OUT,
+  UPLOAD_PROFILE,
   REGISTER,
   LOGIN,
   CREATE_TIME_TABLE,
