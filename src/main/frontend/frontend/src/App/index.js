@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 import TimeTables from '../scenes/TimeTables';
 import TimeTable from '../scenes/TimeTable';
@@ -18,7 +18,8 @@ import { UPLOAD_PROFILE } from "../store/actions";
 
 const App = ({ loadProfile, isLoggedIn, role, profile }) => {
 
-  loadProfile();
+  if(!isLoggedIn)
+    loadProfile();
 
   return (
     <>
@@ -47,6 +48,7 @@ const App = ({ loadProfile, isLoggedIn, role, profile }) => {
           path="/adminPanelTable/:id"
           component={isLoggedIn && role === usersRoleEnum.ADMIN ? AdminPanelTable : null}
         />
+        <Redirect to="/"/>
       </Switch>
     </>
   );

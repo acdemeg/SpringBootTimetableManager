@@ -45,7 +45,7 @@ public class Order {
     @ToString.Exclude
     private List<AttributeValue> attributeValues;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     @ToString.Exclude
     private List<Notification> notifications;
