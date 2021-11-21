@@ -72,11 +72,18 @@ const appServiceData = {
         Authorization: `Basic ${authStr}`,
       }
     }
-    const res = await axios.post(`/api/users/login`, null, config).catch(err => {
-      return `${err}`;
+    const res = await axios.post(`/api/users/login`, null, config)
+        .catch(err => {return `${err}`;
     });
     return res.status === 200 ? res.data : false;
   },
+
+  async logOutUser(){
+    const res = await axios.post(`/api/users/logout`)
+        .catch(err => {return `${err}`;
+        });
+    return res.status === 200;
+  }
 };
 
 export default appServiceData;

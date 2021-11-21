@@ -41,6 +41,7 @@ const scenesEnum = Object.freeze({
   TIMELINE: 'Timeline',
   LOG_IN: 'Log-In',
   REG: 'Reg',
+  ANY: 'Any'
 });
 
 const typeAlertEnum = Object.freeze({
@@ -84,7 +85,8 @@ const messages = Object.freeze({
   EMAIL_UPDATE: 'Your email update',
   NAME_UPDATE: 'Your name update',
   LOG_IN: 'You logged your account',
-  LOG_OUT: 'You logout your account',
+  LOG_OUT: 'You logout from account',
+  LOG_OUT_ERROR: 'Logout failed',
   LOG_IN_ERROR: 'Incorrect email or password',
   REG: 'You succses registered',
   CREATE_TIME_TABLE: 'You succses create timetable',

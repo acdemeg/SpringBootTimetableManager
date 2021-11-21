@@ -127,6 +127,17 @@ const LOG_OUT = () => ({
   type: actionsEnum.LOG_OUT,
 });
 
+
+const LOGOUT = (dispatch) => {
+  appServiceData.logOutUser().then(res => {
+    if(res){
+      dispatch(LOG_OUT());
+      dispatch(SHOW_ALERT(scenesEnum.ANY, messages.LOG_OUT));
+    }
+    else dispatch(SHOW_ALERT(scenesEnum.ANY, messages.LOG_OUT_ERROR, typeAlertEnum.ERROR))
+  })
+};
+
 const LOGIN = (event, dispatch) => {
   event.preventDefault();
 
@@ -395,6 +406,7 @@ export {
   ORDER_REMOVE,
   LOG_IN,
   LOG_OUT,
+  LOGOUT,
   UPLOAD_PROFILE,
   REGISTER,
   LOGIN,

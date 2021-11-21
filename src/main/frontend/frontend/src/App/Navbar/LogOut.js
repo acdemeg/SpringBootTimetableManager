@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {LOG_OUT} from '../../store/actions';
+import {LOGOUT} from '../../store/actions';
 
 function LogOut({ logOut }) {
-  return (
+    return (
     <li>
       <div
         role="button" //
         tabIndex={0} // for lint
-        onKeyDown={logOut} //
-        onClick={logOut}
+        onKeyDown={scene => logOut(scene)} //
+        onClick={scene => logOut(scene)}
         className="button is-black"
         style={{ marginTop: '-5px' }}
       >
@@ -20,7 +20,7 @@ function LogOut({ logOut }) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  logOut: () => dispatch(LOG_OUT()),
+  logOut: () => LOGOUT(dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(LogOut);

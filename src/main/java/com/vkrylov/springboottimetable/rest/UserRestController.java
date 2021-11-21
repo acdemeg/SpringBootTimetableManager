@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +50,13 @@ public class UserRestController {
     public Optional<User> getLoginUser(Authentication auth){
         SecurityUser securityUser = (SecurityUser)auth.getPrincipal();
         return userRepository.findById(securityUser.getId());
+    }
+
+    @PostMapping("/users/logout")
+    @PreAuthorize("hasAuthority('USER')")
+    public void logoutUser(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().invalidate();
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @DeleteMapping("/users/{id}")
