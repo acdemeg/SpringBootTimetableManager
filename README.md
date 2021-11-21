@@ -13,47 +13,40 @@ For USER:
 * password: joo_passw
 
 # How to run app:
-1. `docker-compose up -d`
-2. `cd ./backside/backend/src`
-3. `npx sequelize-cli db:migrate ->  npx sequelize-cli db:seed:all or restor from dump`
-4. `Go to http://localhost:8000`
+
+1. `Move to src/main/frontend/ and run ./init.sh(for Linux), for Windows need complete all command step by step`
+2. `Run "mvn package -DskipTests" command`
+3. `Run "docker-compose up"`
+4. `Move to ops/db-backups/ and run "restore" script, for Windows make as above mentioned`
+5. `Move to` http://localhost:8002
 <!--  -->
+
 ## Requirements:
 1. Node v12.x or higher
 2. NPM v6.x or higher
+3. Docker, Docker-compose
+4. Java, Maven
 
-## How to install requirements:
-1. run in the console `./init.sh`
-
-## Repo contains
-1. Backend template: 'backend' folder
-2. Frontend template: 'frontend folder
-3. Database backups: 'ops' folder
-
-docker-compose file uses postgres as database.
-You can change db_user and db_password in docker-compose.yml file.
 
 ## How to use Docker:
 Run all commands project root folder
+
+docker-compose file uses postgres as database.
+You can change db_user and db_password in docker-compose.yml file.
 
 ### Start containers
 `docker-compose up -d`
 ### Show logs containers
 `docker-compose logs -f web`
 
-## How to watch static:
-`cd ./frontend && npm run watch`
-
-# DB commands
-## Make a dump
-`docker-compose exec db sh -c 'exec pg_dump -U postgres time_tables > /backup/dump.sql'`
-
-## Restore from the dump
-`docker-compose exec db sh -c 'exec psql -U postgres time_tables < /backup/dump.sql'`
-
 # Useful commands
 ## Clean all docker containers info
 `docker-compose stop && docker-compose down --rmi local --volumes --remove-orphans`
+
+## Make dump DB
+`move to /ops/db-backups/ and run "make-dump" `
+
+
 
 
 

@@ -9,7 +9,7 @@ services:
     restart: always
     tty: true
     working_dir: /home/app
-    command: "java -jar springboot-timetable-0.0.1-SNAPSHOT.jar"
+    command: "java -jar springboot-timetable-1.0.0-SNAPSHOT.jar"
     volumes:
       - ./target:/home/app
     ports:

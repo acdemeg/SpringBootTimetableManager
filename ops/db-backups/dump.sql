@@ -361,7 +361,6 @@ COPY public.notifications (id, order_id, user_id, type, is_read) FROM stdin;
 
 COPY public.orders (id, author_id, author_name, start_date, end_date, status, time_table_id) FROM stdin;
 1	1	Admin	2020-04-14 19:00:00+00	2020-04-14 20:00:00+00	ACCEPTED	1
-3	2	John Doe	2020-04-12 19:00:00+00	2020-04-12 20:00:00+00	CREATED	1
 4	3	Michail	2020-06-08 18:00:00+00	2020-06-08 19:00:00+00	CREATED	4
 5	3	Michail	2020-09-03 01:00:00+00	2020-09-03 02:00:00+00	CREATED	8
 6	2	John Doe	2020-02-22 00:00:00+00	2020-02-22 01:00:00+00	ACCEPTED	2
@@ -382,11 +381,12 @@ COPY public.orders (id, author_id, author_name, start_date, end_date, status, ti
 21	3	Michail	2020-07-21 18:00:00+00	2020-07-22 18:00:00+00	CREATED	5
 22	4	Ivan	2020-07-21 18:00:00+00	2020-07-22 18:00:00+00	CREATED	5
 23	2	John Doe	2020-07-21 18:00:00+00	2020-07-22 18:00:00+00	CREATED	5
-24	1	Admin	2020-07-29 18:00:00+00	2020-07-30 18:00:00+00	ACCEPTED	5
 25	4	Ivan	2020-07-24 18:00:00+00	2020-07-25 18:00:00+00	CREATED	5
 26	4	Ivan	2020-07-31 18:00:00+00	2020-08-01 18:00:00+00	CANCELED	5
 30	1	Admin	2020-04-11 16:00:00+00	2020-04-11 17:00:00+00	CANCELED	1
 2	2	John Doe	2020-04-09 19:00:00+00	2020-04-09 20:00:00+00	CREATED	1
+3	2	John Doe	2020-04-12 19:00:00+00	2020-04-12 20:00:00+00	CREATED	1
+24	1	Admin	2020-07-29 18:00:00+00	2020-07-30 18:00:00+00	CREATED	5
 \.
 
 
@@ -402,7 +402,7 @@ COPY public.time_tables (id, title, start_date, end_date, slot_size) FROM stdin;
 5	HackTheRealty	2020-07-05 18:00:00+00	2020-08-16 17:00:00+00	DAY
 6	MCOM Foodtech Anticrisis	2020-05-03 18:00:00+00	2020-05-31 17:00:00+00	DAY
 7	Serverless Architecture Conference 2020	2020-06-30 18:00:00+00	2020-07-05 17:00:00+00	HOUR
-8	HR API Online-marathon 2021	2020-09-02 18:00:00+00	2020-09-05 17:00:00+00	HOUR
+8	HR API Online-marathon 2020	2020-09-02 18:00:00+00	2020-09-05 17:00:00+00	HOUR
 \.
 
 
@@ -413,12 +413,12 @@ COPY public.time_tables (id, title, start_date, end_date, slot_size) FROM stdin;
 COPY public.users (id, name, email, password, role, image_path) FROM stdin;
 9	Michael	Micle@mail.ru	$2a$12$lTBDIPz8BHRIY7oXvHc4jev.y8m9bj8GAlo26QSMsTTWNzufApI7O	USER	user_avatar_9.png
 1	Admin	admin@google.com	$2a$12$Wlmiy9OEn9v8KIXa5hfzIOuXWFTQkIhXJc1509X.d0IpfXlA9FLKq	ADMIN	user_avatar_1.png
+6	Dima	Dima@mail.ru	$2a$12$pf3.TsUMZfBHq2dgh899FeOpCn7qUxr..EKz.CoJsOtDs9u33lswe	USER	user_avatar_6.png
 12	Vika	Vika@mail.ru	$2a$12$H28zwcV1vLNuVRapHs6i7.EZoZxgN8n8JfGuC9Py1iTUiy3neR/ii	USER	user_avatar_12.png
 4	Ivan	iv@mail.ru	$2a$12$vzxs4yvHKmLwl29iwxqr9.apA07zQv8lF2H4VbBI9J/ldh5PLV7Iq	USER	user_avatar_4.png
 10	Luisa	Luisa@mail.ru	$2a$12$59oICwS1Ajr0Rp.gN4Fg..E8CH0nDw3f4F4IqVIB0.ZijJBkkY0ca	USER	user_avatar_10.png
 15	Kim_Chen_In	Kim_Chen_In@mail.ru	$2a$12$/AhOiiPoxOjbtYbaES1hKOBPG2PUEOWDkEP36NZbqqE0cYBi2M7ta	USER	user_avatar_15.png
 7	Anton	Anton@mail.ru	$2a$12$Sox5vsVlhMJbtEPFZFjn2erTeDUbZSOZi64wEojNAsPaXNjes17BS	USER	user_avatar_7.png
-6	Dima	Dima@mail.ru	$2a$12$pf3.TsUMZfBHq2dgh899FeOpCn7qUxr..EKz.CoJsOtDs9u33lswe	USER	user_avatar_6.png
 3	Michael	micha@mail.ru	$2a$12$vIb1EzSdrsUgaWA7tLaT7uamt9mR1yTwmLrp9Xsz4ZMdg64KmDnjq	USER	user_avatar_3.png
 13	Polina	Polina@mail.ru	$2a$12$hta7IUTzYQo3E4G4JR4nXOHWTvruVjrwvBtdV/E7K6bZieh5wuW/S	USER	user_avatar_13.png
 11	Sebastian	Sebastian@mail.ru	$2a$12$mx7RpSOodV/dd.1TWaZcB.giVX9n7cAbvD6VRCzAYqdn.ouxucpEO	USER	user_avatar_11.png
@@ -432,14 +432,14 @@ COPY public.users (id, name, email, password, role, image_path) FROM stdin;
 -- Name: AttributeValues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."AttributeValues_id_seq"', 45, true);
+SELECT pg_catalog.setval('public."AttributeValues_id_seq"', 95, true);
 
 
 --
 -- Name: Attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Attributes_id_seq"', 23, true);
+SELECT pg_catalog.setval('public."Attributes_id_seq"', 46, true);
 
 
 --
@@ -453,21 +453,21 @@ SELECT pg_catalog.setval('public."Notifications_id_seq"', 3, true);
 -- Name: Orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Orders_id_seq"', 40, true);
+SELECT pg_catalog.setval('public."Orders_id_seq"', 65, true);
 
 
 --
 -- Name: TimeTables_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."TimeTables_id_seq"', 24, true);
+SELECT pg_catalog.setval('public."TimeTables_id_seq"', 47, true);
 
 
 --
 -- Name: Users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Users_id_seq"', 60, true);
+SELECT pg_catalog.setval('public."Users_id_seq"', 94, true);
 
 
 --
