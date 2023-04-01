@@ -3,6 +3,8 @@
 This repo is copy other my project TimeTableManager based on SpringBoot.
 For more details information move to https://github.com/acdemeg/TimeTableManager 
 
+Live DEMO: http://devproject.site:8000/
+
 ## Test credentials for App
 For ADMIN:
 * login: admin@google.com
@@ -18,7 +20,7 @@ For USER:
 2. `Run "mvn package -DskipTests" command`
 3. `Run "docker-compose up"`
 4. `Move to ops/db-backups/ and run "restore" script, for Windows make as above mentioned`
-5. `Move to` http://localhost:8002
+5. `Move to` http://localhost:8000
 <!--  -->
 
 ## Requirements:

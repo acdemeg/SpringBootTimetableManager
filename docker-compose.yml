@@ -1,28 +1,30 @@
 version: "3.7"
 
-volumes:
-  db-data:
-
 services:
   web:
-    image: openjdk
+    image: acdemeg/web-projects:timetable-web
     restart: always
+    build:
+      context: .
+      dockerfile: ./docker-build/web/Dockerfile
     tty: true
-    working_dir: /home/app
+    working_dir: /server
     command: "java -jar springboot-timetable-1.0.0-SNAPSHOT.jar"
-    volumes:
-      - ./target:/home/app
+    depends_on:
+      - db
     ports:
-      - "8002:8080"
+      - "8000:8080"
 
   db:
-    image: postgres:11
+    image: acdemeg/web-projects:timetable-db
+    build:
+      context: .
+      dockerfile: ./docker-build/db/Dockerfile
     restart: always
     environment:
-      POSTGRES_DB: time_tables
-      POSTGRES_PASSWORD: passw
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
       - ./ops/db-backups:/backup
     ports:
       - "5442:5432"
