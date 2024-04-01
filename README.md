@@ -3,7 +3,7 @@
 This repo is copy other my project TimeTableManager based on SpringBoot.
 For more details information move to https://github.com/acdemeg/TimeTableManager 
 
-Live DEMO: http://devproject.site:8000/
+Live DEMO: http://45.90.218.76:8000/
 
 ## Test credentials for App
 For ADMIN:
